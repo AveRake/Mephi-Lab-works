@@ -1,0 +1,5 @@
+# ninja log v5
+3	517	7085686018976194	CMakeFiles/lab4.dir/main.cpp.obj	f840c55ae1325e99
+517	654	7085686020183656	lab4.exe	e92ae7ab1a5498a
+4	94	7085578440971892	CMakeFiles/lab4.dir/detours.cpp.obj	f4fb8f962344f9a7
+1	165	7085687015560766	build.ninja	8287bb2844df8ebb
