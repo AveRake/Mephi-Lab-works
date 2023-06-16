@@ -1,0 +1,20 @@
+# ninja log v5
+9	830	7056005729933788	CMakeFiles/lab1.dir/main.c.obj	1744a18f138d60ff
+27	839	7056005730086829	CMakeFiles/lab1.dir/constMultiply.c.obj	cb148e96d27a898d
+841	1304	7056005734717010	lab1.exe	2f8ebd9501472c48
+2	82	7049352159741638	CMakeFiles/lab1.dir/add.c.obj	10df442f5f6edf2d
+2	74	7050285734512858	CMakeFiles/lab1.dir/test.c.obj	60612d071f21c04c
+2	114	7049309961453655	CMakeFiles/lab1.dir/const.c.obj	f9c7d3703f52f67f
+1	65	7056216297285229	CMakeFiles/lab1_test.dir/run_test.c.obj	b0c36ea94d3b3143
+22	835	7056005730031333	CMakeFiles/lab1.dir/multiply.c.obj	a1975fef1e8ec515
+16	841	7056005730086829	CMakeFiles/lab1.dir/linearly.c.obj	feec24118f0c23dd
+100	209	7056249173693661	lab1_test.exe	4186f0805fb54c23
+33	828	7056005729764149	CMakeFiles/lab1.dir/addMatrix.c.obj	bf5aa37ffd29f1fd
+1	71	7056216103609030	CMakeFiles/lab1_test.dir/constMultiplyTest.c.obj	380e1eed52d48899
+53	268	7056007532058374	CMakeFiles/lab1_test.dir/linearlyTest.c.obj	bddb48aab957b014
+2	154	7056007530772853	CMakeFiles/lab1_test.dir/constMultiply.c.obj	75c618450996ce85
+2	99	7056249172648602	CMakeFiles/lab1_test.dir/addMatrixTest.c.obj	46dbd6f846e9045e
+9	182	7056007530920775	CMakeFiles/lab1_test.dir/addMatrix.c.obj	8f0c1cfd172747d1
+28	269	7056007532073414	CMakeFiles/lab1_test.dir/multiplyTest.c.obj	21355396c36b242e
+45	250	7056007531873215	CMakeFiles/lab1_test.dir/multiply.c.obj	42fef80e75e1899f
+37	233	7056007531672994	CMakeFiles/lab1_test.dir/linearly.c.obj	c57f90bc34a5ed86
