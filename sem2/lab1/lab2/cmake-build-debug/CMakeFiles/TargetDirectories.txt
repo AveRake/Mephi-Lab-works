@@ -1,4 +1,0 @@
-C:/ClionProjects/lab2/cmake-build-debug/CMakeFiles/lab2.dir
-C:/ClionProjects/lab2/cmake-build-debug/CMakeFiles/lab2_test.dir
-C:/ClionProjects/lab2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/ClionProjects/lab2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
