@@ -1,69 +1,78 @@
 #include <iostream>
+using namespace std;
+
 
 template <typename T>
-class SmartPointer {
+class SmrtPtr {
 public:
-    // Конструктор, принимающий указатель
-    SmartPointer(T* ptr) : ptr_(ptr), refCount_(new size_t(1)) {}
-
-    // Копирующий конструктор
-    SmartPointer(const SmartPointer<T>& other) : ptr_(other.ptr_), refCount_(other.refCount_) {
-        ++(*refCount_);
+    SmrtPtr() {
+        ptr = nullptr;
+        refCount = nullptr;
     }
 
-    // Оператор присваивания
-    SmartPointer<T>& operator=(const SmartPointer<T>& other) {
-        if (this != &other) {
-            // Уменьшаем счетчик ссылок текущего объекта
-            Release();
+    SmrtPtr(T* ptr) {
+        this->ptr = ptr;
+        refCount = new size_t(1);
+    }
 
-            ptr_ = other.ptr_;
-            refCount_ = other.refCount_;
-            ++(*refCount_);
+    SmrtPtr(const SmrtPtr<T>& other) {
+        this->ptr = other.ptr;
+        this->refCount = other.refCount;
+
+        if (refCount) {
+            (*refCount)++;
+        }
+    }
+
+    SmrtPtr& operator =(const SmrtPtr<T>& other) {
+        if (this != &other) {
+            if (refCount && --(*refCount) == 0) {
+                delete ptr;
+                delete refCount;
+            }
+
+            ptr = other.ptr;
+            refCount = other.refCount;
+
+            if (refCount) {
+                (*refCount)++;
+            }
         }
         return *this;
     }
 
-    // Деструктор
-    ~SmartPointer() {
-        Release();
+    T& operator *() {
+        return *ptr;
     }
 
-    // Оператор разыменования
-    T& operator*() {
-        return *ptr_;
+    T* operator ->() {
+        return ptr;
     }
 
-    // Оператор доступа к членам указателя
-    T* operator->() {
-        return ptr_;
+    ~SmrtPtr() {
+        if (refCount && --(*refCount) == 0) {
+            delete ptr;
+            delete refCount;
+        }
     }
 
 private:
-    T* ptr_;
-    size_t* refCount_;
-
-    void Release() {
-        if (ptr_ && --(*refCount_) == 0) {
-            delete ptr_;
-            delete refCount_;
-            ptr_ = nullptr;
-            refCount_ = nullptr;
-        }
-    }
+    T* ptr;
+    size_t* refCount;
 };
 
+
 int main() {
-    SmartPointer<int> sp1(new int(42));
-    SmartPointer<int> sp2 = sp1; // Копирующий конструктор
+    SmrtPtr<int> sp1(new int(42));
+    SmrtPtr<int> sp2 = sp1;
+    SmrtPtr<int> sp3(new int(100));
 
-    std::cout << "sp1: " << *sp1 << std::endl;
-    std::cout << "sp2: " << *sp2 << std::endl;
+    sp3 = sp2;
 
-    sp1 = sp2; // Оператор присваивания
+    cout << *sp1 << endl;
+    cout << *sp2 << endl;
+    cout << *sp3 << endl;
 
-    std::cout << "sp1: " << *sp1 << std::endl;
-    std::cout << "sp2: " << *sp2 << std::endl;
-
+    system("pause");
     return 0;
 }
