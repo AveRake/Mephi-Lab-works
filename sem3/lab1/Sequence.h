@@ -22,6 +22,14 @@ public:
         data = static_cast<const SmrtPtr<T>>(nullptr);
     }
 
+    T& operator[](int index) const {
+        if (index >= 0 && index < arraySize) {
+            return data[index];
+        } else {
+            throw std::out_of_range("Index out of bounds");
+        }
+    }
+
     void push_back(const T& item) override {
         SmrtPtr<T> newData(new T[arraySize + 1], arraySize + 1);
         for (int i = 0; i < arraySize; ++i) {
