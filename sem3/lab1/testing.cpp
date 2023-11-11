@@ -386,7 +386,7 @@ int main () {
     assert(arr333.getSize() == 4);
 
     for (int i = 0; i < 4; ++i) {
-        assert(arr333[i] == i);  // Values should remain unchanged
+        assert(arr333[i] == i);
     }
 
     // Test 3
@@ -665,6 +665,135 @@ int main () {
     list47.push_back(2);
     list47.push_back(3);
     assert(list47.getSize() == 3);
+
+
+    // Tests for pop_back double (linked list)
+    // Test 1
+    LinkedList<double> list1d;
+    assert(list1d.getSize() == 0);
+
+    // Test 2
+    LinkedList<double> list2d;
+    list2d.push_back(1.1);
+    list2d.pop_back();
+    assert(list2d.getSize() == 0);
+
+    // Test 3
+    LinkedList<double> list3d;
+    list3d.push_back(1.2);
+    list3d.push_back(2.3);
+    list3d.push_back(3.21);
+    list3d.pop_back();
+    assert(list3d.getSize() == 2);
+
+    // Test 4
+    LinkedList<double> list4d;
+    list4d.push_back(1.1);
+    list4d.push_back(2.5);
+    list4d.push_back(3.7);
+    list4d.pop_back();
+    list4d.pop_back();
+    assert(list4d.getSize() == 1);
+
+    // Test 5
+    LinkedList<double> list5d;
+    list5d.resize(5);
+    list5d.pop_back();
+    assert(list5d.getSize() == 4);
+
+    // Test 6
+    LinkedList<double> list6d;
+    list6d.resize(5);
+    list6d.pop_back();
+    assert(list6d.getSize() == 4);
+
+    // Tests for pop_back char (linked list)
+    // Test 1
+    LinkedList<char> list1char;
+    assert(list1char.getSize() == 0);
+
+    // Test 2
+    LinkedList<char> list2char;
+    list2char.push_back('e');
+    list2char.pop_back();
+    assert(list2char.getSize() == 0);
+
+    // Test 3
+    LinkedList<char> list3char;
+    list3char.push_back('d');
+    list3char.push_back('c');
+    list3char.push_back('a');
+    list3char.pop_back();
+    assert(list3d.getSize() == 2);
+
+    // Test 4
+    LinkedList<char> list4char;
+    list4char.push_back('q');
+    list4char.push_back('w');
+    list4char.push_back('e');
+    list4char.pop_back();
+    list4char.pop_back();
+    assert(list4char.getSize() == 1);
+
+    // Test 5
+    LinkedList<char> list5char;
+    list5char.resize(5);
+    list5char.pop_back();
+    assert(list5char.getSize() == 4);
+
+    // Test 6
+    LinkedList<char> list6char;
+    list6char.resize(4);
+    list6char.pop_back();
+    assert(list6char.getSize() == 3);
+
+
+    // Tests for pop_back char (dynamic array)
+    // Test 1
+    DynamicArray<int> arr1char;
+    assert(arr1char.getSize() == 0);
+    arr1char.pop_back();
+    assert(arr1char.getSize() == 0);
+
+    // Test 2
+    DynamicArray<int> arr2char;
+    arr2char.push_back('q');
+    arr2char.push_back('w');
+    arr2char.push_back('e');
+
+    assert(arr2char.getSize() == 3);
+    arr2char.pop_back();
+    assert(arr2char.getSize() == 2);
+
+    assert(arr2char[0] == 'q');
+    assert(arr2char[1] == 'w');
+
+    // Test 3
+    DynamicArray<int> arr3char;
+    arr3char.push_back('q');
+    arr3char.push_back('w');
+    arr3char.push_back('e');
+
+    assert(arr3char.getSize() == 3);
+
+    while (arr3char.getSize() > 0) {
+        arr3char.pop_back();
+    }
+
+    assert(arr3char.getSize() == 0);
+
+    // Test 4
+    DynamicArray<int> arr4char;
+    assert(arr4char.getSize() == 0);
+
+    arr4char.resize(10);
+    assert(arr4char.getSize() == 10);
+
+    arr4char.pop_back();
+    assert(arr4char.getSize() == 9);
+
+    arr4char.pop_back();
+    assert(arr4char.getSize() == 8);
 
 
     cout << "All tests were checked successfully!" << endl;

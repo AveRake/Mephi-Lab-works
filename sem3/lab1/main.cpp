@@ -16,28 +16,49 @@ void showMenu() {
 int main() {
     cout << "Welcome to the my programme about Smart Pointers" << endl;
     cout << "Choose the sequences that you want to use for testing Smart Pointers" << endl;
-    cout << "Press 1 for Dynamic Array and 2 for Linked List" << endl;
+    cout << "Press 1 for Dynamic Array\nPress 2 for Linked List\nPress 3 to start Benchmark" << endl;
     cout << ">>> ";
     int sequencesChoice;
     cin >> sequencesChoice;
     cout << endl;
 
+    if (sequencesChoice != 1 && sequencesChoice != 2 && sequencesChoice != 3) {
+        cout << "Wrong choice!" << endl;
+        system("pause");
+        exit(-1);
+    }
+
+    if (sequencesChoice == 3) {
+        cout << "Benchmark starting" << endl;
+        system("pause");
+        return 0;
+    }
+
     int dataType = 0;
     cout << "For type int press 1" << endl;
     cout << "For type double press 2" << endl;
+    cout << "For type char press 3" << endl;
     cout << ">>> ";
     cin >> dataType;
     cout << endl;
 
+    if (dataType != 1 && dataType != 2 && dataType != 3) {
+        cout << "Wrong choice!" << endl;
+        system("pause");
+        exit(-1);
+    }
 
     int menuChoice = 1;
+    int newSize;
     int item;
     double doubleItem;
-    int newSize;
+    char charItem;
     DynamicArray<int> dynamicArray;
     DynamicArray<double> dynamicArrayDouble;
+    DynamicArray<char> dynamicArrayChar;
     LinkedList<int> linkedList;
     LinkedList<double> linkedListDouble;
+    LinkedList<char> linkedListChar;
 
     while (menuChoice != 0) {
         showMenu();
@@ -76,6 +97,9 @@ int main() {
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
                         break;
+                    default:
+                        cout << "Wrong choice, try again\n" << endl;
+                        break;
                 }
             }
 
@@ -110,6 +134,47 @@ int main() {
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
+                        break;
+                    default:
+                        cout << "Wrong choice, try again\n" << endl;
+                        break;
+                }
+            }
+
+            if (dataType == 3) {
+                switch(menuChoice) {
+                    case 1:
+                        cout << "Enter the item that you want push_back" << endl;
+                        cout << ">>> ";
+                        cin >> charItem;
+                        cout << endl << endl;
+                        dynamicArrayChar.push_back(charItem);
+                        break;
+                    case 2:
+                        cout << "operation pop back is done successfully" << endl << endl;
+                        dynamicArrayChar.pop_back();
+                        break;
+                    case 3:
+                        cout << "Enter newSize for your Dynamic Array" << endl;
+                        cout << ">>> ";
+                        cin >> newSize;
+                        cout << endl << endl;
+                        dynamicArrayChar.resize(newSize);
+                        break;
+                    case 4:
+                        cout << "Size of your Dynamic Array is ";
+                        cout << dynamicArrayChar.getSize() << endl << endl;
+                        break;
+                    case 5:
+                        dynamicArrayChar.print();
+                        cout << endl;
+                        break;
+                    case 0:
+                        cout << "exiting" << endl << endl;
+                        menuChoice = 0;
+                        break;
+                    default:
+                        cout << "Wrong choice, try again\n" << endl;
                         break;
                 }
             }
@@ -148,6 +213,9 @@ int main() {
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
                         break;
+                    default:
+                        cout << "Wrong choice, try again\n" << endl;
+                        break;
                 }
             }
 
@@ -182,6 +250,47 @@ int main() {
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
+                        break;
+                    default:
+                        cout << "Wrong choice, try again\n" << endl;
+                        break;
+                }
+            }
+
+            if (dataType == 3) {
+                switch(menuChoice) {
+                    case 1:
+                        cout << "Enter the item that you want push_back" << endl;
+                        cout << ">>> ";
+                        cin >> charItem;
+                        cout << endl << endl;
+                        linkedListChar.push_back(charItem);
+                        break;
+                    case 2:
+                        cout << "operation pop back is done successfully" << endl << endl;
+                        linkedListChar.pop_back();
+                        break;
+                    case 3:
+                        cout << "Enter newSize for your Linked List" << endl;
+                        cout << ">>> ";
+                        cin >> newSize;
+                        cout << endl << endl;
+                        linkedListChar.resize(newSize);
+                        break;
+                    case 4:
+                        cout << "Size of your Linked List is ";
+                        cout << linkedListChar.getSize() << endl << endl;
+                        break;
+                    case 5:
+                        linkedListChar.print();
+                        cout << endl;
+                        break;
+                    case 0:
+                        cout << "exiting" << endl << endl;
+                        menuChoice = 0;
+                        break;
+                    default:
+                        cout << "Wrong choice, try again\n" << endl;
                         break;
                 }
             }
