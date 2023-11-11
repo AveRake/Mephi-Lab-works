@@ -3,21 +3,42 @@
 
 
 void showMenu() {
-    cout << "Press 1 if you want add item for your sequence" << endl;
-    cout << "Press 2 if you want delete item from your sequence" << endl;
-    cout << "Press 3 if you want resize your sequence" << endl;
-    cout << "Press 4 if you want to known the size of your sequence" << endl;
-    cout << "Press 5 if you want print your sequence" << endl;
-    cout << "Press 0 if you want exit the programme" << endl;
+    cout << " ------------------------------------------------------------" << endl;
+    cout << "|Press 1 if you want add item for your sequence              |" << endl;
+    cout << "|Press 2 if you want delete item from your sequence          |" << endl;
+    cout << "|Press 3 if you want resize your sequence                    |" << endl;
+    cout << "|Press 4 if you want to known the size of your sequence      |" << endl;
+    cout << "|Press 5 if you want print your sequence                     |" << endl;
+    cout << "|Press 6 if you want change type of data                     |" << endl;
+    cout << "|Press 7 if you want change type of sequences                |" << endl;
+    cout << "|Press 0 if you want exit the programme                      |" << endl;
+    cout << " ------------------------------------------------------------" << endl;
+    cout << ">>> ";
+}
+
+void showDataType() {
+    cout << " ------------------------" << endl;
+    cout << "|For type int press 1    |" << endl;
+    cout << "|For type double press 2 |" << endl;
+    cout << "|For type char press 3   |" << endl;
+    cout << " ------------------------" << endl;
+    cout << ">>> ";
+}
+
+void showSequencesType() {
+    cout << " ---------------------------------------------------------------------" << endl;
+    cout << "|Choose the sequences that you want to use for testing Smart Pointers |" << endl;
+    cout << "|Press 1 for Dynamic Array                                            |" << endl;
+    cout << "|Press 2 for Linked List                                              |" << endl;
+    cout << "|Press 3 to start Benchmark                                           |" << endl;
+    cout << " ---------------------------------------------------------------------" << endl;
     cout << ">>> ";
 }
 
 
 int main() {
     cout << "Welcome to the my programme about Smart Pointers" << endl;
-    cout << "Choose the sequences that you want to use for testing Smart Pointers" << endl;
-    cout << "Press 1 for Dynamic Array\nPress 2 for Linked List\nPress 3 to start Benchmark" << endl;
-    cout << ">>> ";
+    showSequencesType();
     int sequencesChoice;
     cin >> sequencesChoice;
     cout << endl;
@@ -35,10 +56,7 @@ int main() {
     }
 
     int dataType = 0;
-    cout << "For type int press 1" << endl;
-    cout << "For type double press 2" << endl;
-    cout << "For type char press 3" << endl;
-    cout << ">>> ";
+    showDataType();
     cin >> dataType;
     cout << endl;
 
@@ -61,11 +79,11 @@ int main() {
     LinkedList<char> linkedListChar;
 
     while (menuChoice != 0) {
-        showMenu();
-        cin >> menuChoice;
-        cout << endl;
         if (sequencesChoice == 1) {
             if (dataType == 1) {
+                showMenu();
+                cin >> menuChoice;
+                cout << endl;
                 switch(menuChoice) {
                     case 1:
                         cout << "Enter the item that you want push_back" << endl;
@@ -93,6 +111,22 @@ int main() {
                         dynamicArray.print();
                         cout << endl;
                         break;
+                    case 6:
+                        showDataType();
+                        cin >> dataType;
+                        cout << endl;
+                        while (dynamicArray.getSize() != 0) {
+                            dynamicArray.pop_back();
+                        }
+                        break;
+                    case 7:
+                        showSequencesType();
+                        cin >> sequencesChoice;
+                        cout << endl;
+                        while (dynamicArray.getSize() != 0) {
+                            dynamicArray.pop_back();
+                        }
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -104,6 +138,9 @@ int main() {
             }
 
             if (dataType == 2) {
+                showMenu();
+                cin >> menuChoice;
+                cout << endl;
                 switch(menuChoice) {
                     case 1:
                         cout << "Enter the item that you want push_back" << endl;
@@ -131,6 +168,22 @@ int main() {
                         dynamicArrayDouble.print();
                         cout << endl;
                         break;
+                    case 6:
+                        showDataType();
+                        cin >> dataType;
+                        cout << endl;
+                        while (dynamicArrayDouble.getSize() != 0) {
+                            dynamicArrayDouble.pop_back();
+                        }
+                        break;
+                    case 7:
+                        showSequencesType();
+                        cin >> sequencesChoice;
+                        cout << endl;
+                        while (dynamicArrayDouble.getSize() != 0) {
+                            dynamicArrayDouble.pop_back();
+                        }
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -142,6 +195,9 @@ int main() {
             }
 
             if (dataType == 3) {
+                showMenu();
+                cin >> menuChoice;
+                cout << endl;
                 switch(menuChoice) {
                     case 1:
                         cout << "Enter the item that you want push_back" << endl;
@@ -169,6 +225,22 @@ int main() {
                         dynamicArrayChar.print();
                         cout << endl;
                         break;
+                    case 6:
+                        showDataType();
+                        cin >> dataType;
+                        cout << endl;
+                        while (dynamicArrayChar.getSize() != 0) {
+                            dynamicArrayChar.pop_back();
+                        }
+                        break;
+                    case 7:
+                        showSequencesType();
+                        cin >> sequencesChoice;
+                        cout << endl;
+                        while (dynamicArrayChar.getSize() != 0) {
+                            dynamicArrayChar.pop_back();
+                        }
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -182,6 +254,9 @@ int main() {
 
         if (sequencesChoice == 2) {
             if (dataType == 1) {
+                showMenu();
+                cin >> menuChoice;
+                cout << endl;
                 switch(menuChoice) {
                     case 1:
                         cout << "Enter the item that you want push_back" << endl;
@@ -209,6 +284,22 @@ int main() {
                         linkedList.print();
                         cout << endl;
                         break;
+                    case 6:
+                        showDataType();
+                        cin >> dataType;
+                        cout << endl;
+                        while (linkedList.getSize() != 0) {
+                            linkedList.pop_back();
+                        }
+                        break;
+                    case 7:
+                        showSequencesType();
+                        cin >> sequencesChoice;
+                        cout << endl;
+                        while (linkedList.getSize() != 0) {
+                            linkedList.pop_back();
+                        }
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -220,6 +311,9 @@ int main() {
             }
 
             if (dataType == 2) {
+                showMenu();
+                cin >> menuChoice;
+                cout << endl;
                 switch(menuChoice) {
                     case 1:
                         cout << "Enter the item that you want push_back" << endl;
@@ -247,6 +341,22 @@ int main() {
                         linkedListDouble.print();
                         cout << endl;
                         break;
+                    case 6:
+                        showDataType();
+                        cin >> dataType;
+                        cout << endl;
+                        while (linkedListDouble.getSize() != 0) {
+                            linkedListDouble.pop_back();
+                        }
+                        break;
+                    case 7:
+                        showSequencesType();
+                        cin >> sequencesChoice;
+                        cout << endl;
+                        while (linkedListDouble.getSize() != 0) {
+                            linkedListDouble.pop_back();
+                        }
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -258,6 +368,9 @@ int main() {
             }
 
             if (dataType == 3) {
+                showMenu();
+                cin >> menuChoice;
+                cout << endl;
                 switch(menuChoice) {
                     case 1:
                         cout << "Enter the item that you want push_back" << endl;
@@ -284,6 +397,22 @@ int main() {
                     case 5:
                         linkedListChar.print();
                         cout << endl;
+                        break;
+                    case 6:
+                        showDataType();
+                        cin >> dataType;
+                        cout << endl;
+                        while (linkedListChar.getSize() != 0) {
+                            linkedListChar.pop_back();
+                        }
+                        break;
+                    case 7:
+                        showSequencesType();
+                        cin >> sequencesChoice;
+                        cout << endl;
+                        while (linkedListChar.getSize() != 0) {
+                            linkedListChar.pop_back();
+                        }
                         break;
                     case 0:
                         cout << "exiting" << endl << endl;
