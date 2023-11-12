@@ -11,6 +11,8 @@ public:
     virtual int getSize() const = 0;
     virtual void resize(int newSize) = 0;
     virtual void print() const = 0;
+    virtual void getIndex(int index) const = 0;
+    virtual void setIndex(const T& item, int index) = 0;
 };
 
 
@@ -66,6 +68,31 @@ public:
                 cout << data[i] << " ";
             }
             cout << endl;
+        }
+
+        else {
+            cout << "DynamicArray is empty" << endl;
+        }
+    }
+
+    void getIndex(int index) const override {
+        if (data) {
+            if (index < arraySize && index >= 0) {
+                cout << "array[" << index << "] = ";
+                cout << data[index] << endl;
+            }
+        }
+
+        else {
+            cout << "DynamicArray is empty" << endl;
+        }
+    }
+
+    void setIndex(const T& item, int index) override {
+        if (data) {
+            if (index < arraySize && index >= 0) {
+                data[index] = item;
+            }
         }
 
         else {
@@ -152,6 +179,32 @@ public:
         }
 
         size--;
+    }
+
+    void getIndex(int index) const override {
+        if (index < 0 || index >= size) {
+            throw out_of_range("Index out of bounds");
+        }
+
+        SmrtPtr<Node<T>> current = head;
+        for (int i = 0; i < index; ++i) {
+            current = current->next;
+        }
+
+        cout << "linked list[" << index << "] = " << current->data << endl;
+    }
+
+    void setIndex(const T& item, int index) override {
+        if (index < 0 || index >= size) {
+            throw out_of_range("Index out of bounds");
+        }
+
+        SmrtPtr<Node<T>> current = head;
+        for (int i = 0; i < index; ++i) {
+            current = current->next;
+        }
+
+        current->data = item;
     }
 
     void resize(int newSize) override {

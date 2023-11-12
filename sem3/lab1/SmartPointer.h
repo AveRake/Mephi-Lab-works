@@ -92,6 +92,44 @@ public:
         return ptr != other.ptr;
     }
 
+    [[nodiscard]] size_t getRefCount() const {
+        return refCount ? *refCount : 0;
+    }
+
+    [[nodiscard]] bool isArray() const {
+        return arraySize > 0;
+    }
+
+    [[nodiscard]] bool isNull() const {
+        return ptr == nullptr;
+    }
+
+    [[nodiscard]] bool unique() const {
+        return refCount != nullptr && (*refCount == 1);
+    }
+
+    void reset(T* newPtr = nullptr, size_t newSize = 0) {
+        if (refCount && --(*refCount) == 0) {
+            delete ptr;
+            delete refCount;
+        }
+
+        ptr = newPtr;
+        refCount = new size_t(1);
+        arraySize = newSize;
+    }
+
+    T* release() {
+        T* releasedPtr = ptr;
+        size_t* releasedRefCount = refCount;
+
+        ptr = nullptr;
+        refCount = nullptr;
+        arraySize = 0;
+
+        return releasedPtr;
+    }
+
     ~SmrtPtr() {
         if (refCount && --(*refCount) == 0) {
             delete ptr;

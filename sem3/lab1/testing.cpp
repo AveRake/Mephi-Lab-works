@@ -8,10 +8,12 @@ int main () {
     // Тест 1
     SmrtPtr<int> sp1(new int(42));
     assert(static_cast<bool>(sp1) == true);
+    assert(sp1.unique() == 1);
 
     // Тест 2
     SmrtPtr<int> sp2;
     assert(static_cast<bool>(sp2) == false);
+    assert(sp1.isArray() == 0);
 
     // Тест 3
     SmrtPtr<int> sp3(new int(42));
@@ -70,11 +72,13 @@ int main () {
     // Test 1
     SmrtPtr<int> sp11(new int(42));
     assert(*sp11 == 42);
+    assert(sp1.isArray() == 0);
 
     // Test 2
     SmrtPtr<int> sp13(new int(42));
     SmrtPtr<int> sp14 = sp13;
     assert(*sp14 == 42);
+    assert(sp14.isArray() == 0);
 
     // Test 3
     SmrtPtr<int> sp15(new int(42));
@@ -90,6 +94,7 @@ int main () {
     // Test 5
     SmrtPtr<double> spd11(new double(42.1));
     assert(*spd11 == 42.1);
+    assert(sp11.isNull() == 0);
 
     // Test 6
     SmrtPtr<double> spd13(new double(42.1));
@@ -149,6 +154,7 @@ int main () {
     // Tests for the operator [], ==
     //Test 1
     SmrtPtr<int> sp31(new int[5]{1, 2, 3, 4, 5}, 5);
+    assert(sp31.isArray() == 1);
 
     for (size_t i = 0; i < 5; ++i) {
         assert(sp31.operator[](i) == i + 1);
@@ -229,12 +235,14 @@ int main () {
     SmrtPtr<int> sp51(new int(42));
     SmrtPtr<int> sp52;
     sp52 = sp51;
+    assert(sp52.getRefCount() == 2);
     assert(*sp52 == 42);
 
     //Test 2
     SmrtPtr<int> sp53(new int[3]{1, 2, 3}, 3);
     SmrtPtr<int> sp54;
     sp54 = sp53;
+    assert(sp54.getRefCount() == 2);
 
     for (size_t i = 0; i < 3; ++i) {
         assert(sp54.operator[](i) == i + 1);
@@ -794,6 +802,41 @@ int main () {
 
     arr4char.pop_back();
     assert(arr4char.getSize() == 8);
+
+
+    // Tests for reset
+    // Test 1
+    SmrtPtr<int> ptr(new int(42));
+
+    assert(ptr);
+    assert(*ptr == 42);
+
+    ptr.reset(new int(99));
+
+    assert(ptr);
+    assert(*ptr == 99);
+
+    // Test 2
+    SmrtPtr<int> ptr2(new int(42));
+
+    assert(ptr2);
+
+    ptr2.reset();
+
+    assert(!ptr2);
+
+
+    // Test for release
+    SmrtPtr<int> ptr3(new int(42));
+
+    assert(ptr3);
+
+    int* releasedPtr = ptr3.release();
+
+    assert(*releasedPtr == 42);
+    assert(!ptr3);
+
+    delete releasedPtr;
 
 
     cout << "All tests were checked successfully!" << endl;

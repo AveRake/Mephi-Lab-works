@@ -11,6 +11,8 @@ void showMenu() {
     cout << "|Press 5 if you want print your sequence                     |" << endl;
     cout << "|Press 6 if you want change type of data                     |" << endl;
     cout << "|Press 7 if you want change type of sequences                |" << endl;
+    cout << "|Press 8 if you want get the item by index                   |" << endl;
+    cout << "|Press 9 if you want set the item by index                   |" << endl;
     cout << "|Press 0 if you want exit the programme                      |" << endl;
     cout << " ------------------------------------------------------------" << endl;
     cout << ">>> ";
@@ -68,6 +70,7 @@ int main() {
 
     int menuChoice = 1;
     int newSize;
+    int index;
     int item;
     double doubleItem;
     char charItem;
@@ -127,6 +130,25 @@ int main() {
                             dynamicArray.pop_back();
                         }
                         break;
+                    case 8:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+                        dynamicArray.getIndex(index);
+                        break;
+                    case 9:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+
+                        cout << "Enter the item" << endl;
+                        cout << ">>> ";
+                        cin >> item;
+                        cout << endl;
+                        dynamicArray.setIndex(item, index);
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -184,6 +206,25 @@ int main() {
                             dynamicArrayDouble.pop_back();
                         }
                         break;
+                    case 8:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+                        dynamicArrayDouble.getIndex(index);
+                        break;
+                    case 9:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+
+                        cout << "Enter the item" << endl;
+                        cout << ">>> ";
+                        cin >> doubleItem;
+                        cout << endl;
+                        dynamicArrayDouble.setIndex(doubleItem, index);
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -240,6 +281,25 @@ int main() {
                         while (dynamicArrayChar.getSize() != 0) {
                             dynamicArrayChar.pop_back();
                         }
+                        break;
+                    case 8:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+                        dynamicArrayChar.getIndex(index);
+                        break;
+                    case 9:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+
+                        cout << "Enter the item" << endl;
+                        cout << ">>> ";
+                        cin >> charItem;
+                        cout << endl;
+                        dynamicArrayChar.setIndex(charItem, index);
                         break;
                     case 0:
                         cout << "exiting" << endl << endl;
@@ -300,6 +360,25 @@ int main() {
                             linkedList.pop_back();
                         }
                         break;
+                    case 8:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+                        linkedList.getIndex(index);
+                        break;
+                    case 9:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+
+                        cout << "Enter the item" << endl;
+                        cout << ">>> ";
+                        cin >> item;
+                        cout << endl;
+                        linkedList.setIndex(item, index);
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -357,6 +436,25 @@ int main() {
                             linkedListDouble.pop_back();
                         }
                         break;
+                    case 8:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+                        linkedListDouble.getIndex(index);
+                        break;
+                    case 9:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+
+                        cout << "Enter the item" << endl;
+                        cout << ">>> ";
+                        cin >> doubleItem;
+                        cout << endl;
+                        linkedListDouble.setIndex(doubleItem, index);
+                        break;
                     case 0:
                         cout << "exiting" << endl << endl;
                         menuChoice = 0;
@@ -413,6 +511,25 @@ int main() {
                         while (linkedListChar.getSize() != 0) {
                             linkedListChar.pop_back();
                         }
+                        break;
+                    case 8:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+                        linkedListChar.getIndex(index);
+                        break;
+                    case 9:
+                        cout << "Enter the number of index" << endl;
+                        cout << ">>> ";
+                        cin >> index;
+                        cout << endl;
+
+                        cout << "Enter the item" << endl;
+                        cout << ">>> ";
+                        cin >> charItem;
+                        cout << endl;
+                        linkedListChar.setIndex(charItem, index);
                         break;
                     case 0:
                         cout << "exiting" << endl << endl;
