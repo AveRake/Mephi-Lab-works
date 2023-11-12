@@ -3,8 +3,6 @@
 #include "Sequence.h"
 #include <chrono>
 #include <algorithm>
-
-
 using namespace std;
 using namespace chrono;
 
@@ -18,23 +16,19 @@ void Benchmark() {
 
     auto startRaw = high_resolution_clock::now();
 
-    int** rawArray = new int*[N];
+    int* rawArray = new int[N];
 
     for (int i = 0; i < N; ++i) {
-        rawArray[i] = new int(rand()%1000);
+        rawArray[i] = rand()%1000;
     }
 
-    sort(rawArray, rawArray + N, [](const int* a, const int* b) {
-        return *a < *b;
+    sort(rawArray, rawArray + N, [](const int a, const int b) {
+        return a < b;
     });
 
 //    for (int i = 0; i < N; ++i) {
-//        cout << *(rawArray)[i] << endl;
+//        cout << rawArray[i] << endl;
 //    }
-
-    for (int i = 0; i < N; ++i) {
-        delete rawArray[i];
-    }
 
     delete[] rawArray;
 
