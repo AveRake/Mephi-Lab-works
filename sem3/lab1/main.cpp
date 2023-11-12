@@ -1,5 +1,6 @@
 #include "SmartPointer.h"
 #include "Sequence.h"
+#include "Benchmark.h"
 
 
 void showMenu() {
@@ -52,7 +53,27 @@ int main() {
     }
 
     if (sequencesChoice == 3) {
-        cout << "Benchmark starting" << endl;
+        int benchChoice = 1;
+
+        while (benchChoice != 0) {
+            cout << "Benchmark starting" << endl;
+            Benchmark();
+            cout << endl;
+
+            cout << "Would you like to continue testing?" << endl;
+            cout << "If yes - press 1, if not - press 0" << endl;
+            cout << ">>> ";
+            cin >> benchChoice;
+            cout << endl;
+
+            if (benchChoice != 1 && benchChoice != 0) {
+                cout << "Please try again" << endl;
+                cout << ">>> ";
+                cin >> benchChoice;
+                cout << endl;
+            }
+        }
+
         system("pause");
         return 0;
     }
