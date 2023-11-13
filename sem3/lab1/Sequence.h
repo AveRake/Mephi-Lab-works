@@ -6,13 +6,16 @@
 template <typename T>
 class Sequence {
 public:
+    // Modifiers
     virtual void push_back(const T& item) = 0;
     virtual void pop_back() = 0;
-    virtual int getSize() const = 0;
-    virtual void resize(int newSize) = 0;
-    virtual void print() const = 0;
-    virtual void getIndex(int index) const = 0;
-    virtual void setIndex(const T& item, int index) = 0;
+    [[maybe_unused]] virtual void resize(int newSize) = 0;
+    [[maybe_unused]] virtual void setIndex(const T& item, int index) = 0;
+
+    // Observers
+    [[maybe_unused]] [[nodiscard]] virtual int getSize() const = 0;
+    [[maybe_unused]] virtual void getIndex(int index) const = 0;
+    [[maybe_unused]] virtual void print() const = 0;
 };
 
 
@@ -57,7 +60,7 @@ public:
         }
     }
 
-    int getSize() const override {
+    [[nodiscard]] int getSize() const override {
         return arraySize;
     }
 
@@ -128,7 +131,7 @@ struct Node {
     T data;
     SmrtPtr<Node<T>> next;
 
-    Node(const T& item) {
+    explicit Node(const T& item) {
         data = item;
         next = static_cast<const SmrtPtr<Node<T>>>(nullptr);
     }
@@ -222,7 +225,7 @@ public:
         }
     }
 
-    int getSize() const override {
+    [[nodiscard]] int getSize() const override {
         return size;
     }
 

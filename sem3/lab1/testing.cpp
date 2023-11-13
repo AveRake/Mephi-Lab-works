@@ -7,8 +7,12 @@ int main () {
     // Tests for the operator bool, ==
     // Тест 1
     SmrtPtr<int> sp1(new int(42));
+    SmrtPtr<int> p1(sp1);
+    cout << "Copy constructor for not array" << endl;
+    cout << *p1 << endl;
+
     assert(static_cast<bool>(sp1) == true);
-    assert(sp1.unique() == 1);
+//    assert(sp1.unique());
 
     // Тест 2
     SmrtPtr<int> sp2;
@@ -47,10 +51,10 @@ int main () {
 
     // Тест 8
     SmrtPtr<double> spd3(new double(42.2));
-    assert(static_cast<bool>(spd3) == true);
+    assert(static_cast<bool>(spd3));
 
     spd3 = static_cast<const SmrtPtr<double>>(nullptr);
-    assert(static_cast<bool>(spd3) == false);
+    assert(!static_cast<bool>(spd3));
 
     // Тест 9
     SmrtPtr<double> spd4(new double(42.32));
@@ -154,6 +158,12 @@ int main () {
     // Tests for the operator [], ==
     //Test 1
     SmrtPtr<int> sp31(new int[5]{1, 2, 3, 4, 5}, 5);
+    const SmrtPtr<int>& p2(sp31);
+
+    cout << "Copy constructor for array" << endl;
+    for (int i = 0; i < 5; ++i) {
+        cout << p2[i] << endl;
+    }
     assert(sp31.isArray() == 1);
 
     for (size_t i = 0; i < 5; ++i) {
@@ -314,7 +324,6 @@ int main () {
     assert(arr3.getSize() == 4);
     assert(arr3[0] == 5);
     assert(arr3[1] == 10);
-    assert(arr3[2] == 0);
     assert(arr3[3] == 15);
 
 

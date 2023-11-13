@@ -23,14 +23,14 @@ public:
         arraySize = size;
     }
 
-    explicit SmrtPtr(const T& other) {
-        ptr = other.ptr;
-        refCount = other.refCount;
-
-        if (refCount) {
-            (*refCount)++;
-        }
-    }
+//    explicit SmrtPtr(const T& other) {
+//        ptr = other.ptr;
+//        refCount = other.refCount;
+//
+//        if (refCount) {
+//            (*refCount)++;
+//        }
+//    }
 
     SmrtPtr(const SmrtPtr<T>& other) {
         ptr = other.ptr;
