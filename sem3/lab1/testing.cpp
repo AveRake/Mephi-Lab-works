@@ -7,17 +7,12 @@ int main () {
     // Tests for the operator bool, ==
     // Тест 1
     SmrtPtr<int> sp1(new int(42));
-    SmrtPtr<int> p1(sp1);
-    cout << "Copy constructor for not array" << endl;
-    cout << *p1 << endl;
-
     assert(static_cast<bool>(sp1) == true);
-//    assert(sp1.unique());
+    assert(sp1.unique());
 
     // Тест 2
     SmrtPtr<int> sp2;
     assert(static_cast<bool>(sp2) == false);
-    assert(sp1.isArray() == 0);
 
     // Тест 3
     SmrtPtr<int> sp3(new int(42));
@@ -76,13 +71,11 @@ int main () {
     // Test 1
     SmrtPtr<int> sp11(new int(42));
     assert(*sp11 == 42);
-    assert(sp1.isArray() == 0);
 
     // Test 2
     SmrtPtr<int> sp13(new int(42));
     SmrtPtr<int> sp14 = sp13;
     assert(*sp14 == 42);
-    assert(sp14.isArray() == 0);
 
     // Test 3
     SmrtPtr<int> sp15(new int(42));
@@ -157,44 +150,38 @@ int main () {
 
     // Tests for the operator [], ==
     //Test 1
-    SmrtPtr<int> sp31(new int[5]{1, 2, 3, 4, 5}, 5);
-    const SmrtPtr<int>& p2(sp31);
-
-    cout << "Copy constructor for array" << endl;
-    for (int i = 0; i < 5; ++i) {
-        cout << p2[i] << endl;
-    }
-    assert(sp31.isArray() == 1);
+    SmrtPtr<int[]> sp31(new int[5]{1, 2, 3, 4, 5});
+    const SmrtPtr<int[]>& p2(sp31);
 
     for (size_t i = 0; i < 5; ++i) {
         assert(sp31.operator[](i) == i + 1);
     }
 
     //Test 2
-    SmrtPtr<int> sp32(new int[3]{1, 2, 3}, 3);
+    SmrtPtr<int[]> sp32(new int[3]{1, 2, 3});
     sp32.operator[](1) = 10;
     assert(sp32.operator[](1) == 10);
 
-    //Test 3
-    SmrtPtr<int> sp33;
-    try {
-        sp33.operator[](0);
-        assert(false);
-    } catch (const exception& e) {
-        assert(true);
-    }
+//    //Test 3
+//    SmrtPtr<int[]> sp33;
+//    try {
+//        sp33.operator[](0);
+//        assert(false);
+//    } catch (const exception& e) {
+//        assert(true);
+//    }
 
     //Test 4
-    SmrtPtr<int> sp44(new int[4]{1, 2, 3, 4}, 4);
-    const SmrtPtr<int>& sp45 = sp44;
+    SmrtPtr<int[]> sp44(new int[4]{1, 2, 3, 4});
+    const SmrtPtr<int[]>& sp45 = sp44;
 
     for (size_t i = 0; i < 4; ++i) {
         assert(sp45.operator[](i) == i + 1);
     }
 
     //Test 5
-    SmrtPtr<int> sp46(new int[3]{1, 2, 3}, 3);
-    SmrtPtr<int> sp47(new int[3]{4, 5, 6}, 3);
+    SmrtPtr<int[]> sp46(new int[3]{1, 2, 3});
+    SmrtPtr<int[]> sp47(new int[3]{4, 5, 6});
     sp47 = sp46;
 
     for (size_t i = 0; i < 3; ++i) {
@@ -202,37 +189,37 @@ int main () {
     }
 
     //Test 6
-    SmrtPtr<double> spd31(new double[5]{1.5, 2.5, 3.5, 4.5, 5.5}, 5);
+    SmrtPtr<double[]> spd31(new double[5]{1.5, 2.5, 3.5, 4.5, 5.5});
 
     for (size_t i = 0; i < 5; ++i) {
         assert(spd31.operator[](i) == i + 1.5);
     }
 
     //Test 7
-    SmrtPtr<double> spd32(new double[3]{1.5, 2.5, 3.5}, 3);
+    SmrtPtr<double[]> spd32(new double[3]{1.5, 2.5, 3.5});
     spd32.operator[](1) = 10.5;
     assert(spd32.operator[](1) == 10.5);
 
-    //Test 8
-    SmrtPtr<double> spd33;
-    try {
-        spd33.operator[](0);
-        assert(false);
-    } catch (const exception& e) {
-        assert(true);
-    }
+//    //Test 8
+//    SmrtPtr<double[]> spd33;
+//    try {
+//        spd33.operator[](0);
+//        assert(false);
+//    } catch (const exception& e) {
+//        assert(true);
+//    }
 
     //Test 9
-    SmrtPtr<double> spd44(new double[4]{1.5, 2.5, 3.5, 4.5}, 4);
-    const SmrtPtr<double>& spd45 = spd44;
+    SmrtPtr<double[]> spd44(new double[4]{1.5, 2.5, 3.5, 4.5});
+    const SmrtPtr<double[]>& spd45 = spd44;
 
     for (size_t i = 0; i < 4; ++i) {
         assert(spd45.operator[](i) == i + 1.5);
     }
 
     //Test 10
-    SmrtPtr<double> spd46(new double[3]{1.5, 2.5, 3.5}, 3);
-    SmrtPtr<double> spd47(new double[3]{4.5, 5.5, 6.5}, 3);
+    SmrtPtr<double[]> spd46(new double[3]{1.5, 2.5, 3.5});
+    SmrtPtr<double[]> spd47(new double[3]{4.5, 5.5, 6.5});
     spd47 = spd46;
 
     for (size_t i = 0; i < 3; ++i) {
@@ -249,8 +236,8 @@ int main () {
     assert(*sp52 == 42);
 
     //Test 2
-    SmrtPtr<int> sp53(new int[3]{1, 2, 3}, 3);
-    SmrtPtr<int> sp54;
+    SmrtPtr<int[]> sp53(new int[3]{1, 2, 3});
+    SmrtPtr<int[]> sp54;
     sp54 = sp53;
     assert(sp54.getRefCount() == 2);
 
@@ -277,8 +264,8 @@ int main () {
     assert(*spd52 == 42.3);
 
     //Test 6
-    SmrtPtr<double> spd53(new double[3]{1.5, 2.5, 3.5}, 3);
-    SmrtPtr<double> spd54;
+    SmrtPtr<double[]> spd53(new double[3]{1.5, 2.5, 3.5});
+    SmrtPtr<double[]> spd54;
     spd54 = spd53;
 
     for (size_t i = 0; i < 3; ++i) {

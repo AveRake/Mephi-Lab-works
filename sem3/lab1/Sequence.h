@@ -20,42 +20,56 @@ public:
 
 
 template <typename T>
-class DynamicArray : public Sequence<T> {
+class DynamicArray : public Sequence<T>{
 public:
     DynamicArray() {
+        array = SmrtPtr<T[]>();
         arraySize = 0;
-        data = static_cast<const SmrtPtr<T>>(nullptr);
     }
 
-    T& operator[](int index) const {
-        if (index >= 0 && index < arraySize) {
-            return data[index];
-        } else {
-            throw std::out_of_range("Index out of bounds");
+    explicit DynamicArray(size_t size) : array(new T[size]) {
+        arraySize = size;
+    }
+
+    T& operator[](size_t index) const {
+        return array[index];
+    }
+
+    DynamicArray<T>& operator=(const DynamicArray<T>& other) {
+        if (this != &other) {
+            delete[] array;
+
+            size_t size = other.size();
+            array = new T[size];
+
+            for (size_t i = 0; i < size; ++i) {
+                array[i] = other.array[i];
+            }
         }
+        return *this;
     }
 
     void push_back(const T& item) override {
-        SmrtPtr<T> newData(new T[arraySize + 1], arraySize + 1);
+        SmrtPtr<T[]> newData(new T[arraySize + 1]);
         for (int i = 0; i < arraySize; ++i) {
-            newData[i] = data[i];
+            newData[i] = array[i];
         }
 
         newData[arraySize] = item;
 
-        data = newData;
+        array = newData;
         arraySize++;
     }
 
     void pop_back() override {
         if (arraySize > 0) {
-            SmrtPtr<T> newData(new T[arraySize - 1], arraySize - 1);
+            SmrtPtr<T[]> newData(new T[arraySize - 1]);
 
             for (int i = 0; i < arraySize - 1; ++i) {
-                newData[i] = data[i];
+                newData[i] = array[i];
             }
 
-            data = newData;
+            array = newData;
             arraySize--;
         }
     }
@@ -65,10 +79,10 @@ public:
     }
 
     void print() const override {
-        if (data) {
+        if (array) {
             cout << "DynamicArray:" << endl;
             for (int i = 0; i < arraySize; ++i) {
-                cout << data[i] << " ";
+                cout << array[i] << " ";
             }
             cout << endl;
         }
@@ -79,10 +93,10 @@ public:
     }
 
     void getIndex(int index) const override {
-        if (data) {
+        if (array) {
             if (index < arraySize && index >= 0) {
                 cout << "array[" << index << "] = ";
-                cout << data[index] << endl;
+                cout << array[index] << endl;
             }
         }
 
@@ -92,9 +106,9 @@ public:
     }
 
     void setIndex(const T& item, int index) override {
-        if (data) {
+        if (array) {
             if (index < arraySize && index >= 0) {
-                data[index] = item;
+                array[index] = item;
             }
         }
 
@@ -109,51 +123,44 @@ public:
             return;
         }
 
-        SmrtPtr<T> newData(new T[newSize], newSize);
+        SmrtPtr<T[]> newData(new T[newSize]);
 
         int minSize = (newSize < arraySize) ? newSize : arraySize;
         for (int i = 0; i < minSize; ++i) {
-            newData[i] = data[i];
+            newData[i] = array[i];
         }
 
         arraySize = newSize;
-        data = newData;
+        array = newData;
     }
 
 private:
-    SmrtPtr<T> data;
-    int arraySize;
+    SmrtPtr<T[]> array;
+    size_t arraySize;
 };
 
 
 template <typename T>
-struct Node {
+class ListNode {
+public:
     T data;
-    SmrtPtr<Node<T>> next;
+    SmrtPtr<ListNode<T>> next;
 
-    explicit Node(const T& item) {
-        data = item;
-        next = static_cast<const SmrtPtr<Node<T>>>(nullptr);
-    }
+    explicit ListNode(const T& value) : data(value), next(nullptr) {}
 };
-
 
 template <typename T>
 class LinkedList : public Sequence<T> {
 public:
-    LinkedList() {
-        head = SmrtPtr<Node<T>>(nullptr);
-        size = 0;
-    }
+    LinkedList() : head(nullptr), size(0) {}
 
     void push_back(const T& item) override {
-        SmrtPtr<Node<T>> newNode = SmrtPtr<Node<T>>(new Node<T>(item));
+        SmrtPtr<ListNode<T>> newNode = SmrtPtr<ListNode<T>>(new ListNode<T>(item));
+
         if (!head) {
             head = newNode;
-        }
-
-        else {
-            SmrtPtr<Node<T>> current = head;
+        } else {
+            SmrtPtr<ListNode<T>> current = head;
             while (current->next) {
                 current = current->next;
             }
@@ -170,15 +177,15 @@ public:
         }
 
         if (size == 1) {
-            head = static_cast<const SmrtPtr<Node<T>>>(nullptr);
+            head = static_cast<const SmrtPtr<ListNode<T>>>(nullptr);
         }
 
         else {
-            SmrtPtr<Node<T>> current = head;
+            SmrtPtr<ListNode<T>> current = head;
             while (current->next && current->next->next) {
                 current = current->next;
             }
-            current->next = SmrtPtr<Node<T>>(nullptr);
+            current->next = SmrtPtr<ListNode<T>>(nullptr);
         }
 
         size--;
@@ -189,7 +196,7 @@ public:
             throw out_of_range("Index out of bounds");
         }
 
-        SmrtPtr<Node<T>> current = head;
+        SmrtPtr<ListNode<T>> current = head;
         for (int i = 0; i < index; ++i) {
             current = current->next;
         }
@@ -202,7 +209,7 @@ public:
             throw out_of_range("Index out of bounds");
         }
 
-        SmrtPtr<Node<T>> current = head;
+        SmrtPtr<ListNode<T>> current = head;
         for (int i = 0; i < index; ++i) {
             current = current->next;
         }
@@ -230,7 +237,8 @@ public:
     }
 
     void print() const override {
-        SmrtPtr<Node<T>> current = head;
+        SmrtPtr<ListNode<T>> current = head;
+        cout << "LinkedList:" << endl;
         while (current) {
             cout << current->data << " ";
             current = current->next;
@@ -239,8 +247,8 @@ public:
     }
 
 private:
-    SmrtPtr<Node<T>> head;
-    int size;
+    SmrtPtr<ListNode<T>> head;
+    size_t size;
 };
 
 

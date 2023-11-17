@@ -17,24 +17,8 @@ public:
         refCount = new size_t(1);
     }
 
-    explicit SmrtPtr(T* ptr, size_t size) {
-        this->ptr = ptr;
-        refCount = new size_t(1);
-        arraySize = size;
-    }
-
-//    explicit SmrtPtr(const T& other) {
-//        ptr = other.ptr;
-//        refCount = other.refCount;
-//
-//        if (refCount) {
-//            (*refCount)++;
-//        }
-//    }
-
     SmrtPtr(const SmrtPtr<T>& other) {
         ptr = other.ptr;
-        arraySize = other.arraySize;
         refCount = other.refCount;
 
         if (refCount) {
@@ -51,7 +35,6 @@ public:
 
             ptr = other.ptr;
             refCount = other.refCount;
-            arraySize = other.arraySize;
 
             if (refCount) {
                 (*refCount)++;
@@ -62,18 +45,6 @@ public:
 
     explicit operator bool() const {
         return ptr != nullptr;
-    }
-
-    T& operator[](size_t index) const {
-        if (ptr) {
-            if (index < arraySize) {
-                return ptr[index];
-            } else {
-                throw out_of_range("Index out of bounds");
-            }
-        } else {
-            throw invalid_argument("nullptr");
-        }
     }
 
     T& operator *() {
@@ -96,10 +67,6 @@ public:
         return refCount ? *refCount : 0;
     }
 
-    [[nodiscard]] bool isArray() const {
-        return arraySize > 0;
-    }
-
     [[nodiscard]] bool isNull() const {
         return ptr == nullptr;
     }
@@ -116,7 +83,6 @@ public:
 
         ptr = newPtr;
         refCount = new size_t(1);
-        arraySize = newSize;
     }
 
     T* release() {
@@ -125,7 +91,6 @@ public:
 
         ptr = nullptr;
         refCount = nullptr;
-        arraySize = 0;
 
         return releasedPtr;
     }
@@ -139,7 +104,106 @@ public:
 
 private:
     T* ptr;
-    size_t arraySize{};
+    size_t* refCount;
+};
+
+
+template <typename T>
+class SmrtPtr<T[]> {
+public:
+    SmrtPtr() {
+        ptr = nullptr;
+        refCount = nullptr;
+    }
+
+    explicit SmrtPtr(T* ptr) {
+        this->ptr = ptr;
+        refCount = new size_t(1);
+    }
+
+    SmrtPtr(const SmrtPtr<T[]>& other) {
+        ptr = other.ptr;
+        refCount = other.refCount;
+
+        if (refCount) {
+            (*refCount)++;
+        }
+    }
+
+    SmrtPtr<T[]>& operator =(const SmrtPtr<T[]>& other) {
+        if (this != &other) {
+            if (refCount && --(*refCount) == 0) {
+                delete[] ptr;
+                delete refCount;
+            }
+
+            ptr = other.ptr;
+            refCount = other.refCount;
+
+            if (refCount) {
+                (*refCount)++;
+            }
+        }
+        return *this;
+    }
+
+    T& operator[](size_t index) const {
+        return ptr[index];
+    }
+
+    T& operator *() {
+        return *ptr;
+    }
+
+    T* operator ->() {
+        return ptr;
+    }
+
+    bool operator==(const SmrtPtr<T[]>& other) const {
+        return ptr == other.ptr;
+    }
+
+    bool operator!=(const SmrtPtr<T[]>& other) const {
+        return ptr != other.ptr;
+    }
+
+    explicit operator bool() const {
+        return ptr != nullptr;
+    }
+
+    [[nodiscard]] size_t getRefCount() const {
+        return refCount ? *refCount : 0;
+    }
+
+    [[nodiscard]] bool isNull() const {
+        return ptr == nullptr;
+    }
+
+    [[nodiscard]] bool unique() const {
+        return refCount != nullptr && (*refCount == 1);
+    }
+
+    void reset(T* newPtr = nullptr, size_t newSize = 0) {
+        if (this->ptr != newPtr) {
+            if (refCount && --(*refCount) == 0) {
+                delete[] ptr;
+                delete refCount;
+            }
+
+            ptr = newPtr;
+            refCount = new size_t(1);
+        }
+    }
+
+    ~SmrtPtr() {
+        if (refCount && --(*refCount) == 0) {
+            delete[] ptr;
+            delete refCount;
+        }
+    }
+
+private:
+    T* ptr;
     size_t* refCount;
 };
 

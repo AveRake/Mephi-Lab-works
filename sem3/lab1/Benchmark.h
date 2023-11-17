@@ -40,7 +40,7 @@ void Benchmark() {
 
     auto startSmart = high_resolution_clock::now();
 
-    SmrtPtr<int> newData(new int[N], N);
+    SmrtPtr<int[]> newData(new int[N]);
 
     for (int i = 0; i < N; ++i) {
         newData[i] = rand()%1000;
