@@ -3,4 +3,4 @@ project(lab2)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(lab2 main.cpp SmartPointers.h Sequence.h)
+add_executable(lab2 main.cpp SmartPointers.h Sequence.h Sorting.h)

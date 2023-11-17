@@ -151,6 +151,8 @@ public:
 
 template <typename T>
 class LinkedList : public Sequence<T> {
+    template <typename U>
+    friend void bubbleSort(LinkedList<U>& list);
 public:
     LinkedList() : head(nullptr), size(0) {}
 

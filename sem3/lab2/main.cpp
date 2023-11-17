@@ -1,34 +1,26 @@
 #include "Sequence.h"
+#include "Sorting.h"
 
 
 int main() {
-    DynamicArray<double> array2(5);
-
-    LinkedList<double> list1;
-    list1.push_back(15.1);
-    list1.push_back(16.1);
-    list1.push_back(17.1);
-    list1.print();
-
-    list1.pop_back();
-    list1.print();
-
-    list1.setIndex(27.1, 1);
-    list1.print();
-
-    list1.resize(4);
-    list1.print();
-
-
-
-    for (int i = 0; i < array2.getSize(); ++i) {
-        array2[i] = i + 0.1;
+    DynamicArray<int> array2(5);
+    for (int i = 0; i < 5; ++i) {
+        array2[i] = i;
     }
+
+    array2.setIndex(8, 0);
+    array2.print();
+    bubbleSort(array2);
     array2.print();
 
-    array2.resize(6);
-    array2.setIndex(6.1, 5);
-    array2.print();
+    LinkedList<int> list1;
+    list1.push_back(3);
+    list1.push_back(7);
+    list1.push_back(5);
+
+    list1.print();
+    bubbleSort(list1);
+    list1.print();
 
     return 0;
 }
