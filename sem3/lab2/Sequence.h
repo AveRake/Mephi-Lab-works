@@ -152,7 +152,21 @@ public:
 template <typename T>
 class LinkedList : public Sequence<T> {
     template <typename U>
-    friend void bubbleSort(LinkedList<U>& list);
+    friend void bubbleSort(LinkedList<U>& list, bool ascending);
+    template <typename U>
+    friend void insertionSort(LinkedList<U>& list, bool ascending);
+    template <typename U>
+    friend SmrtPtr<ListNode<U>> mergeSort(LinkedList<U>& list, SmrtPtr<ListNode<U>> head, bool ascending);
+    template <typename U>
+    friend SmrtPtr<ListNode<U>> merge(LinkedList<U>& list, SmrtPtr<ListNode<U>> left, SmrtPtr<ListNode<U>> right, bool ascending);
+    template <typename U>
+    friend void mergeSort(LinkedList<U>& list, bool ascending);
+    template <typename U>
+    friend void shellSort(LinkedList<U>& list, bool ascending);
+    template <typename U>
+    friend void heapify(LinkedList<U>& list, int n, int i, bool ascending);
+    template <typename U>
+    friend void heapSort(LinkedList<U>& list, bool ascending);
 public:
     LinkedList() : head(nullptr), size(0) {}
 
@@ -246,6 +260,19 @@ public:
             current = current->next;
         }
         cout << endl;
+    }
+
+    SmrtPtr<ListNode<T>> getNodeAt(size_t index) {
+        if (index >= size) {
+            throw out_of_range("Index out of bounds");
+        }
+
+        SmrtPtr<ListNode<T>> current = head;
+        for (size_t i = 0; i < index; ++i) {
+            current = current->next;
+        }
+
+        return current;
     }
 
 private:
