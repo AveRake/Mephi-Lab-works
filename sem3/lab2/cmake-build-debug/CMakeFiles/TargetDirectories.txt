@@ -1,3 +1,4 @@
 C:/ClionProjects/sem3/lab2/cmake-build-debug/CMakeFiles/lab2.dir
+C:/ClionProjects/sem3/lab2/cmake-build-debug/CMakeFiles/lab2Testing.dir
 C:/ClionProjects/sem3/lab2/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/ClionProjects/sem3/lab2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

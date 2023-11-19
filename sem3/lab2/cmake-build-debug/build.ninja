@@ -49,11 +49,11 @@ cmake_ninja_workdir = C$:/ClionProjects/sem3/lab2/cmake-build-debug/
 
 build cmake_object_order_depends_target_lab2: phony || CMakeFiles/lab2.dir
 
-build CMakeFiles/lab2.dir/main.cpp.obj: CXX_COMPILER__lab2_Debug C$:/ClionProjects/sem3/lab2/main.cpp || cmake_object_order_depends_target_lab2
-  DEP_FILE = CMakeFiles\lab2.dir\main.cpp.obj.d
+build CMakeFiles/lab2.dir/mainPart/main.cpp.obj: CXX_COMPILER__lab2_Debug C$:/ClionProjects/sem3/lab2/mainPart/main.cpp || cmake_object_order_depends_target_lab2
+  DEP_FILE = CMakeFiles\lab2.dir\mainPart\main.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always -std=gnu++17
   OBJECT_DIR = CMakeFiles\lab2.dir
-  OBJECT_FILE_DIR = CMakeFiles\lab2.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab2.dir\mainPart
 
 
 # =============================================================================
@@ -63,7 +63,7 @@ build CMakeFiles/lab2.dir/main.cpp.obj: CXX_COMPILER__lab2_Debug C$:/ClionProjec
 #############################################
 # Link the executable lab2.exe
 
-build lab2.exe: CXX_EXECUTABLE_LINKER__lab2_Debug CMakeFiles/lab2.dir/main.cpp.obj
+build lab2.exe: CXX_EXECUTABLE_LINKER__lab2_Debug CMakeFiles/lab2.dir/mainPart/main.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\lab2.dir
@@ -72,6 +72,51 @@ build lab2.exe: CXX_EXECUTABLE_LINKER__lab2_Debug CMakeFiles/lab2.dir/main.cpp.o
   TARGET_FILE = lab2.exe
   TARGET_IMPLIB = liblab2.dll.a
   TARGET_PDB = lab2.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target lab2Testing
+
+
+#############################################
+# Order-only phony target for lab2Testing
+
+build cmake_object_order_depends_target_lab2Testing: phony || CMakeFiles/lab2Testing.dir
+
+build CMakeFiles/lab2Testing.dir/tests/startTests.cpp.obj: CXX_COMPILER__lab2Testing_Debug C$:/ClionProjects/sem3/lab2/tests/startTests.cpp || cmake_object_order_depends_target_lab2Testing
+  DEP_FILE = CMakeFiles\lab2Testing.dir\tests\startTests.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  OBJECT_DIR = CMakeFiles\lab2Testing.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab2Testing.dir\tests
+
+build CMakeFiles/lab2Testing.dir/tests/SequencesTesting.cpp.obj: CXX_COMPILER__lab2Testing_Debug C$:/ClionProjects/sem3/lab2/tests/SequencesTesting.cpp || cmake_object_order_depends_target_lab2Testing
+  DEP_FILE = CMakeFiles\lab2Testing.dir\tests\SequencesTesting.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  OBJECT_DIR = CMakeFiles\lab2Testing.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab2Testing.dir\tests
+
+build CMakeFiles/lab2Testing.dir/tests/SortingMethodsTesting.cpp.obj: CXX_COMPILER__lab2Testing_Debug C$:/ClionProjects/sem3/lab2/tests/SortingMethodsTesting.cpp || cmake_object_order_depends_target_lab2Testing
+  DEP_FILE = CMakeFiles\lab2Testing.dir\tests\SortingMethodsTesting.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  OBJECT_DIR = CMakeFiles\lab2Testing.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab2Testing.dir\tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target lab2Testing
+
+
+#############################################
+# Link the executable lab2Testing.exe
+
+build lab2Testing.exe: CXX_EXECUTABLE_LINKER__lab2Testing_Debug CMakeFiles/lab2Testing.dir/tests/startTests.cpp.obj CMakeFiles/lab2Testing.dir/tests/SequencesTesting.cpp.obj CMakeFiles/lab2Testing.dir/tests/SortingMethodsTesting.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\lab2Testing.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = lab2Testing.exe
+  TARGET_IMPLIB = liblab2Testing.dll.a
+  TARGET_PDB = lab2Testing.exe.dbg
 
 
 #############################################
@@ -101,6 +146,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build lab2: phony lab2.exe
 
+build lab2Testing: phony lab2Testing.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -109,7 +156,7 @@ build lab2: phony lab2.exe
 #############################################
 # Folder: C:/ClionProjects/sem3/lab2/cmake-build-debug
 
-build all: phony lab2.exe
+build all: phony lab2.exe lab2Testing.exe
 
 # =============================================================================
 # Built-in targets
