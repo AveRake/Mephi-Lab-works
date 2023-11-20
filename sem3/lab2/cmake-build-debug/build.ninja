@@ -118,6 +118,39 @@ build lab2Testing.exe: CXX_EXECUTABLE_LINKER__lab2Testing_Debug CMakeFiles/lab2T
   TARGET_IMPLIB = liblab2Testing.dll.a
   TARGET_PDB = lab2Testing.exe.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target lab2Benchmark
+
+
+#############################################
+# Order-only phony target for lab2Benchmark
+
+build cmake_object_order_depends_target_lab2Benchmark: phony || CMakeFiles/lab2Benchmark.dir
+
+build CMakeFiles/lab2Benchmark.dir/SortsBenchmark/Benchmark.cpp.obj: CXX_COMPILER__lab2Benchmark_Debug C$:/ClionProjects/sem3/lab2/SortsBenchmark/Benchmark.cpp || cmake_object_order_depends_target_lab2Benchmark
+  DEP_FILE = CMakeFiles\lab2Benchmark.dir\SortsBenchmark\Benchmark.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  OBJECT_DIR = CMakeFiles\lab2Benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab2Benchmark.dir\SortsBenchmark
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target lab2Benchmark
+
+
+#############################################
+# Link the executable lab2Benchmark.exe
+
+build lab2Benchmark.exe: CXX_EXECUTABLE_LINKER__lab2Benchmark_Debug CMakeFiles/lab2Benchmark.dir/SortsBenchmark/Benchmark.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\lab2Benchmark.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = lab2Benchmark.exe
+  TARGET_IMPLIB = liblab2Benchmark.dll.a
+  TARGET_PDB = lab2Benchmark.exe.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -146,6 +179,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build lab2: phony lab2.exe
 
+build lab2Benchmark: phony lab2Benchmark.exe
+
 build lab2Testing: phony lab2Testing.exe
 
 # =============================================================================
@@ -156,7 +191,7 @@ build lab2Testing: phony lab2Testing.exe
 #############################################
 # Folder: C:/ClionProjects/sem3/lab2/cmake-build-debug
 
-build all: phony lab2.exe lab2Testing.exe
+build all: phony lab2.exe lab2Testing.exe lab2Benchmark.exe
 
 # =============================================================================
 # Built-in targets
