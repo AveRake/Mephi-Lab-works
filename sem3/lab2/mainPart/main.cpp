@@ -1,6 +1,7 @@
 #include "Sequence.h"
 #include "Sorting.h"
 #include "SmartPointers.h"
+#include <conio.h>
 
 
 void dataType() {
@@ -63,12 +64,12 @@ int main() {
         exit(-1);
     }
 
-    LinkedList<int> list1;
-    LinkedList<double> list2;
-    LinkedList<char> list3;
-    DynamicArray<int> array1;
-    DynamicArray<double> array2;
-    DynamicArray<char> array3;
+    LinkedList<int> intList;
+    LinkedList<double> doubleList;
+    LinkedList<char> charList;
+    DynamicArray<int> intArray;
+    DynamicArray<double> doubleArray;
+    DynamicArray<char> charArray;
 
     int menuChoice = 1;
     int item;
@@ -88,30 +89,30 @@ int main() {
                         cout << ">>> ";
                         cin >> item;
                         cout << endl << endl;
-                        array1.push_back(item);
+                        intArray.push_back(item);
                         break;
                     case 2:
                         cout << "operation pop back is done successfully" << endl << endl;
-                        array1.pop_back();
+                        intArray.pop_back();
                         break;
                     case 3:
-                        array1.print();
+                        intArray.print();
                         cout << endl;
                         break;
                     case 4:
                         dataType();
                         cin >> dataChoice;
                         cout << endl;
-                        while (array1.getSize() != 0) {
-                            array1.pop_back();
+                        while (intArray.getSize() != 0) {
+                            intArray.pop_back();
                         }
                         break;
                     case 5:
                         sequenceType();
                         cin >> sequenceChoice;
                         cout << endl;
-                        while (array1.getSize() != 0) {
-                            array1.pop_back();
+                        while (intArray.getSize() != 0) {
+                            intArray.pop_back();
                         }
                         break;
                     case 6:
@@ -123,9 +124,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            bubbleSort(array1);
+                            bubbleSort(intArray);
                         else if (method == 2)
-                            bubbleSort(array1, false);
+                            bubbleSort(intArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -141,9 +142,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            insertionSort(array1);
+                            insertionSort(intArray);
                         else if (method == 2)
-                            insertionSort(array1, false);
+                            insertionSort(intArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -159,9 +160,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            mergeSort(array1);
+                            mergeSort(intArray);
                         else if (method == 2)
-                            mergeSort(array1, false);
+                            mergeSort(intArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -177,9 +178,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            shellSort(array1);
+                            shellSort(intArray);
                         else if (method == 2)
-                            shellSort(array1, false);
+                            shellSort(intArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -195,9 +196,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            heapSort(array1);
+                            heapSort(intArray);
                         else if (method == 2)
-                            heapSort(array1, false);
+                            heapSort(intArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -224,30 +225,30 @@ int main() {
                         cout << ">>> ";
                         cin >> doubleItem;
                         cout << endl << endl;
-                        array2.push_back(doubleItem);
+                        doubleArray.push_back(doubleItem);
                         break;
                     case 2:
                         cout << "operation pop back is done successfully" << endl << endl;
-                        array2.pop_back();
+                        doubleArray.pop_back();
                         break;
                     case 3:
-                        array2.print();
+                        doubleArray.print();
                         cout << endl;
                         break;
                     case 4:
                         dataType();
                         cin >> dataChoice;
                         cout << endl;
-                        while (array2.getSize() != 0) {
-                            array2.pop_back();
+                        while (doubleArray.getSize() != 0) {
+                            doubleArray.pop_back();
                         }
                         break;
                     case 5:
                         sequenceType();
                         cin >> sequenceChoice;
                         cout << endl;
-                        while (array2.getSize() != 0) {
-                            array2.pop_back();
+                        while (doubleArray.getSize() != 0) {
+                            doubleArray.pop_back();
                         }
                         break;
                     case 6:
@@ -259,9 +260,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            bubbleSort(array2);
+                            bubbleSort(doubleArray);
                         else if (method == 2)
-                            bubbleSort(array2, false);
+                            bubbleSort(doubleArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -277,9 +278,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            insertionSort(array2);
+                            insertionSort(doubleArray);
                         else if (method == 2)
-                            insertionSort(array2, false);
+                            insertionSort(doubleArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -295,9 +296,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            mergeSort(array2);
+                            mergeSort(doubleArray);
                         else if (method == 2)
-                            mergeSort(array2, false);
+                            mergeSort(doubleArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -313,9 +314,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            shellSort(array2);
+                            shellSort(doubleArray);
                         else if (method == 2)
-                            shellSort(array2, false);
+                            shellSort(doubleArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -331,9 +332,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            heapSort(array1);
+                            heapSort(intArray);
                         else if (method == 2)
-                            heapSort(array1, false);
+                            heapSort(intArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -360,30 +361,30 @@ int main() {
                         cout << ">>> ";
                         cin >> charItem;
                         cout << endl << endl;
-                        array3.push_back(charItem);
+                        charArray.push_back(charItem);
                         break;
                     case 2:
                         cout << "operation pop back is done successfully" << endl << endl;
-                        array3.pop_back();
+                        charArray.pop_back();
                         break;
                     case 3:
-                        array3.print();
+                        charArray.print();
                         cout << endl;
                         break;
                     case 4:
                         dataType();
                         cin >> dataChoice;
                         cout << endl;
-                        while (array3.getSize() != 0) {
-                            array3.pop_back();
+                        while (charArray.getSize() != 0) {
+                            charArray.pop_back();
                         }
                         break;
                     case 5:
                         sequenceType();
                         cin >> sequenceChoice;
                         cout << endl;
-                        while (array3.getSize() != 0) {
-                            array3.pop_back();
+                        while (charArray.getSize() != 0) {
+                            charArray.pop_back();
                         }
                         break;
                     case 6:
@@ -395,9 +396,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            bubbleSort(array3);
+                            bubbleSort(charArray);
                         else if (method == 2)
-                            bubbleSort(array3, false);
+                            bubbleSort(charArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -413,9 +414,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            insertionSort(array3);
+                            insertionSort(charArray);
                         else if (method == 2)
-                            insertionSort(array3, false);
+                            insertionSort(charArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -431,9 +432,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            mergeSort(array3);
+                            mergeSort(charArray);
                         else if (method == 2)
-                            mergeSort(array3, false);
+                            mergeSort(charArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -449,9 +450,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            shellSort(array3);
+                            shellSort(charArray);
                         else if (method == 2)
-                            shellSort(array3, false);
+                            shellSort(charArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -467,9 +468,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            heapSort(array3);
+                            heapSort(charArray);
                         else if (method == 2)
-                            heapSort(array3, false);
+                            heapSort(charArray, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -499,30 +500,30 @@ int main() {
                         cout << ">>> ";
                         cin >> item;
                         cout << endl << endl;
-                        list1.push_back(item);
+                        intList.push_back(item);
                         break;
                     case 2:
                         cout << "operation pop back is done successfully" << endl << endl;
-                        list1.pop_back();
+                        intList.pop_back();
                         break;
                     case 3:
-                        list1.print();
+                        intList.print();
                         cout << endl;
                         break;
                     case 4:
                         dataType();
                         cin >> dataChoice;
                         cout << endl;
-                        while (list1.getSize() != 0) {
-                            list1.pop_back();
+                        while (intList.getSize() != 0) {
+                            intList.pop_back();
                         }
                         break;
                     case 5:
                         sequenceType();
                         cin >> sequenceChoice;
                         cout << endl;
-                        while (list1.getSize() != 0) {
-                            list1.pop_back();
+                        while (intList.getSize() != 0) {
+                            intList.pop_back();
                         }
                         break;
                     case 6:
@@ -534,9 +535,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            bubbleSort(list1);
+                            bubbleSort(intList);
                         else if (method == 2)
-                            bubbleSort(list1, false);
+                            bubbleSort(intList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -552,9 +553,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            insertionSort(list1);
+                            insertionSort(intList);
                         else if (method == 2)
-                            insertionSort(list1, false);
+                            insertionSort(intList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -570,9 +571,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            mergeSort(list1);
+                            mergeSort(intList);
                         else if (method == 2)
-                            mergeSort(list1, false);
+                            mergeSort(intList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -588,9 +589,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            shellSort(list1);
+                            shellSort(intList);
                         else if (method == 2)
-                            shellSort(list1, false);
+                            shellSort(intList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -606,9 +607,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            heapSort(list1);
+                            heapSort(intList);
                         else if (method == 2)
-                            heapSort(list1, false);
+                            heapSort(intList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -635,30 +636,30 @@ int main() {
                         cout << ">>> ";
                         cin >> doubleItem;
                         cout << endl << endl;
-                        list2.push_back(doubleItem);
+                        doubleList.push_back(doubleItem);
                         break;
                     case 2:
                         cout << "operation pop back is done successfully" << endl << endl;
-                        list2.pop_back();
+                        doubleList.pop_back();
                         break;
                     case 3:
-                        list2.print();
+                        doubleList.print();
                         cout << endl;
                         break;
                     case 4:
                         dataType();
                         cin >> dataChoice;
                         cout << endl;
-                        while (list2.getSize() != 0) {
-                            list2.pop_back();
+                        while (doubleList.getSize() != 0) {
+                            doubleList.pop_back();
                         }
                         break;
                     case 5:
                         sequenceType();
                         cin >> sequenceChoice;
                         cout << endl;
-                        while (list2.getSize() != 0) {
-                            list2.pop_back();
+                        while (doubleList.getSize() != 0) {
+                            doubleList.pop_back();
                         }
                         break;
                     case 6:
@@ -670,9 +671,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            bubbleSort(list2);
+                            bubbleSort(doubleList);
                         else if (method == 2)
-                            bubbleSort(list2, false);
+                            bubbleSort(doubleList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -688,9 +689,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            insertionSort(list2);
+                            insertionSort(doubleList);
                         else if (method == 2)
-                            insertionSort(list2, false);
+                            insertionSort(doubleList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -706,9 +707,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            mergeSort(list2);
+                            mergeSort(doubleList);
                         else if (method == 2)
-                            mergeSort(list2, false);
+                            mergeSort(doubleList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -724,9 +725,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            shellSort(list2);
+                            shellSort(doubleList);
                         else if (method == 2)
-                            shellSort(list2, false);
+                            shellSort(doubleList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -742,9 +743,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            heapSort(list2);
+                            heapSort(doubleList);
                         else if (method == 2)
-                            heapSort(list2, false);
+                            heapSort(doubleList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -771,30 +772,30 @@ int main() {
                         cout << ">>> ";
                         cin >> charItem;
                         cout << endl << endl;
-                        list3.push_back(charItem);
+                        charList.push_back(charItem);
                         break;
                     case 2:
                         cout << "operation pop back is done successfully" << endl << endl;
-                        list3.pop_back();
+                        charList.pop_back();
                         break;
                     case 3:
-                        list3.print();
+                        charList.print();
                         cout << endl;
                         break;
                     case 4:
                         dataType();
                         cin >> dataChoice;
                         cout << endl;
-                        while (list3.getSize() != 0) {
-                            list3.pop_back();
+                        while (charList.getSize() != 0) {
+                            charList.pop_back();
                         }
                         break;
                     case 5:
                         sequenceType();
                         cin >> sequenceChoice;
                         cout << endl;
-                        while (list3.getSize() != 0) {
-                            list3.pop_back();
+                        while (charList.getSize() != 0) {
+                            charList.pop_back();
                         }
                         break;
                     case 6:
@@ -806,9 +807,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            bubbleSort(list3);
+                            bubbleSort(charList);
                         else if (method == 2)
-                            bubbleSort(list3, false);
+                            bubbleSort(charList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -824,9 +825,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            insertionSort(list3);
+                            insertionSort(charList);
                         else if (method == 2)
-                            insertionSort(list3, false);
+                            insertionSort(charList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -842,9 +843,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            mergeSort(list3);
+                            mergeSort(charList);
                         else if (method == 2)
-                            mergeSort(list3, false);
+                            mergeSort(charList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -860,9 +861,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            shellSort(list3);
+                            shellSort(charList);
                         else if (method == 2)
-                            shellSort(list3, false);
+                            shellSort(charList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -878,9 +879,9 @@ int main() {
                         cout << endl;
 
                         if (method == 1)
-                            heapSort(list3);
+                            heapSort(charList);
                         else if (method == 2)
-                            heapSort(list3, false);
+                            heapSort(charList, false);
                         else {
                             cout << "Wrong choice!" << endl;
                             system("pause");
@@ -899,6 +900,6 @@ int main() {
         }
     }
 
-    system("pause");
+    getch();
     return 0;
 }

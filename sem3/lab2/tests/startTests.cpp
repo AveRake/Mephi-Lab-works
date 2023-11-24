@@ -5,11 +5,11 @@
 int main() {
     startDynamicArrayTests();
     startLinkedListTests();
-    bubbleSortTesting();
-    insertionSortTesting();
-    mergeSortTesting();
-    shellSortTesting();
-    heapSortTesting();
+    SortsTesting(1);
+    SortsTesting(2);
+    SortsTesting(3);
+    SortsTesting(4);
+    SortsTesting(5);
 
     cout << "All tests checked successfully!" << endl;
     return 0;

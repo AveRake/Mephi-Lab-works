@@ -153,6 +153,15 @@ void startDynamicArrayTests() {
     assert(array3[0] == 12);
     assert(array3[1] == 15);
 
+    // Test 16
+    array3.resize(1);
+    assert(array3.getSize() == 1);
+    assert(array3[0] == 12);
+
+    // Test 17
+    array3.resize(0);
+    assert(array3.getSize() == 0);
+
 
     //Dynamic Array (double)
     //Test 1
@@ -306,6 +315,15 @@ void startDynamicArrayTests() {
     assert(array6[0] == 12.1);
     assert(array6[1] == 15.1);
 
+    // Test 16
+    array6.resize(1);
+    assert(array6.getSize() == 1);
+    assert(array6[0] == 12.1);
+
+    // Test 17
+    array6.resize(0);
+    assert(array6.getSize() == 0);
+
 
     //Dynamic Array (char)
     //Test 1
@@ -456,6 +474,15 @@ void startDynamicArrayTests() {
     assert(array9.getSize() == 2);
     assert(array9[0] == 12);
     assert(array9[1] == 15);
+
+    // Test 16
+    array9.resize(1);
+    assert(array9.getSize() == 1);
+    assert(array9[0] == 12);
+
+    // Test 17
+    array9.resize(0);
+    assert(array9.getSize() == 0);
 }
 
 

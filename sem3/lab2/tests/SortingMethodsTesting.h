@@ -6,11 +6,7 @@
 #include "../mainPart/Sorting.h"
 
 
-void bubbleSortTesting();
-void insertionSortTesting();
-void mergeSortTesting();
-void shellSortTesting();
-void heapSortTesting();
+void SortsTesting(int type);
 
 
 #endif //LAB2_SORTING_METHODS_TESTING_H
