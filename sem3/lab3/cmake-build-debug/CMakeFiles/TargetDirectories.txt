@@ -1,0 +1,3 @@
+C:/ClionProjects/sem3/lab3/cmake-build-debug/CMakeFiles/lab3.dir
+C:/ClionProjects/sem3/lab3/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/ClionProjects/sem3/lab3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
