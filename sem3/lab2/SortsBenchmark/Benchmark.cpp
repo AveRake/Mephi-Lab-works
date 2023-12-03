@@ -1,6 +1,5 @@
 #include <iostream>
 #include <chrono>
-#include <conio.h>
 #include "../mainPart/Sorting.h"
 using namespace std;
 using namespace chrono;
@@ -240,6 +239,7 @@ int main() {
     }
 
 
-    getch();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.get();
     return 0;
 }
