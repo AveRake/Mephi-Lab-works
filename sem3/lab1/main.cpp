@@ -48,8 +48,11 @@ int main() {
 
     if (sequencesChoice != 1 && sequencesChoice != 2 && sequencesChoice != 3) {
         cout << "Wrong choice!" << endl;
-        system("pause");
-        exit(-1);
+        cout << "Try again" << endl;
+        showSequencesType();
+        cin >> sequencesChoice;
+        cout << endl;
+
     }
 
     if (sequencesChoice == 3) {
@@ -74,7 +77,8 @@ int main() {
             }
         }
 
-        system("pause");
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
         return 0;
     }
 
@@ -85,8 +89,10 @@ int main() {
 
     if (dataType != 1 && dataType != 2 && dataType != 3) {
         cout << "Wrong choice!" << endl;
-        system("pause");
-        exit(-1);
+        cout << "Try again" << endl;
+        showDataType();
+        cin >> dataType;
+        cout << endl;
     }
 
     int menuChoice = 1;
@@ -564,7 +570,7 @@ int main() {
         }
     }
 
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
     return 0;
 }
