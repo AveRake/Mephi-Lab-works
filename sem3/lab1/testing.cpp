@@ -151,7 +151,6 @@ int main () {
     // Tests for the operator [], ==
     //Test 1
     SmrtPtr<int[]> sp31(new int[5]{1, 2, 3, 4, 5});
-    const SmrtPtr<int[]>& p2(sp31);
 
     for (size_t i = 0; i < 5; ++i) {
         assert(sp31.operator[](i) == i + 1);

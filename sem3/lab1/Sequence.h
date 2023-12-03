@@ -37,14 +37,14 @@ public:
 
     DynamicArray<T>& operator=(const DynamicArray<T>& other) {
         if (this != &other) {
-            delete[] array;
+            array.reset(new T[other.getSize()]);
 
-            size_t size = other.size();
-            array = new T[size];
-
+            size_t size = other.getSize();
             for (size_t i = 0; i < size; ++i) {
                 array[i] = other.array[i];
             }
+
+            arraySize = size;
         }
         return *this;
     }
