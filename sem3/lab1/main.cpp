@@ -1,4 +1,3 @@
-#include <conio.h>
 #include "SmartPointer.h"
 #include "Sequence.h"
 #include "Benchmark.h"
@@ -565,6 +564,7 @@ int main() {
         }
     }
 
-    getch();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.get();
     return 0;
 }
