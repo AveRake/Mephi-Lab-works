@@ -48,8 +48,10 @@ int main() {
 
     if (sequenceChoice != 1 && sequenceChoice != 2) {
         cout << "Wrong type of sequences" <<endl;
-        system("pause");
-        exit(-1);
+        cout << "Try again!" << endl;
+        sequenceType();
+        cin >> sequenceChoice;
+        cout << endl;
     }
 
     int dataChoice;
@@ -59,8 +61,10 @@ int main() {
 
     if (dataChoice != 1 && dataChoice != 2 && dataChoice != 3) {
         cout << "Wrong type of sequences" <<endl;
-        system("pause");
-        exit(-1);
+        cout << "Try again!" << endl;
+        dataType();
+        cin >> dataChoice;
+        cout << endl;
     }
 
     LinkedList<int> intList;
@@ -899,7 +903,7 @@ int main() {
         }
     }
 
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
     return 0;
 }
