@@ -106,6 +106,39 @@ build Sem3Lab1Testing.exe: CXX_EXECUTABLE_LINKER__Sem3Lab1Testing_Debug CMakeFil
   TARGET_IMPLIB = libSem3Lab1Testing.dll.a
   TARGET_PDB = Sem3Lab1Testing.exe.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Sem3Lab1Benchmark
+
+
+#############################################
+# Order-only phony target for Sem3Lab1Benchmark
+
+build cmake_object_order_depends_target_Sem3Lab1Benchmark: phony || CMakeFiles/Sem3Lab1Benchmark.dir
+
+build CMakeFiles/Sem3Lab1Benchmark.dir/benchmark.cpp.obj: CXX_COMPILER__Sem3Lab1Benchmark_Debug C$:/ClionProjects/sem3/lab1/benchmark.cpp || cmake_object_order_depends_target_Sem3Lab1Benchmark
+  DEP_FILE = CMakeFiles\Sem3Lab1Benchmark.dir\benchmark.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  OBJECT_DIR = CMakeFiles\Sem3Lab1Benchmark.dir
+  OBJECT_FILE_DIR = CMakeFiles\Sem3Lab1Benchmark.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Sem3Lab1Benchmark
+
+
+#############################################
+# Link the executable Sem3Lab1Benchmark.exe
+
+build Sem3Lab1Benchmark.exe: CXX_EXECUTABLE_LINKER__Sem3Lab1Benchmark_Debug CMakeFiles/Sem3Lab1Benchmark.dir/benchmark.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\Sem3Lab1Benchmark.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = Sem3Lab1Benchmark.exe
+  TARGET_IMPLIB = libSem3Lab1Benchmark.dll.a
+  TARGET_PDB = Sem3Lab1Benchmark.exe.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -134,6 +167,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build Sem3Lab1: phony Sem3Lab1.exe
 
+build Sem3Lab1Benchmark: phony Sem3Lab1Benchmark.exe
+
 build Sem3Lab1Testing: phony Sem3Lab1Testing.exe
 
 # =============================================================================
@@ -144,7 +179,7 @@ build Sem3Lab1Testing: phony Sem3Lab1Testing.exe
 #############################################
 # Folder: C:/ClionProjects/sem3/lab1/cmake-build-debug
 
-build all: phony Sem3Lab1.exe Sem3Lab1Testing.exe
+build all: phony Sem3Lab1.exe Sem3Lab1Testing.exe Sem3Lab1Benchmark.exe
 
 # =============================================================================
 # Built-in targets

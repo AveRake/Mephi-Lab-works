@@ -1,10 +1,9 @@
-#include "SmartPointer.h"
-#include "Sequence.h"
+#include "smartPointer.h"
+#include "sequence.h"
 #include <cassert>
 
 
-int main () {
-    // Tests for the operator bool, ==
+void testSmartPointerInt() {
     // Тест 1
     SmrtPtr<int> sp1(new int(42));
     assert(static_cast<bool>(sp1) == true);
@@ -36,29 +35,103 @@ int main () {
     assert(static_cast<bool>(spd6) == true);
     assert(static_cast<bool>(spd7) == true);
 
-    // Тест 6
+    // Test 6
+    SmrtPtr<int> sp11(new int(42));
+    assert(*sp11 == 42);
+
+    // Test 7
+    SmrtPtr<int> sp13(new int(42));
+    SmrtPtr<int> sp14 = sp13;
+    assert(*sp14 == 42);
+
+    // Test 8
+    SmrtPtr<int> sp15(new int(42));
+    SmrtPtr<int> sp16(new int(84));
+    sp16 = sp15;
+    assert(*sp16 == 42);
+
+    // Test 9
+    SmrtPtr<int> sp17(new int(54));
+    *sp17 = 13;
+    assert(*sp17 == 13);
+
+    // Test 10
+    SmrtPtr<int> sp21(new int(42));
+    assert(sp21.operator->() != nullptr);
+    assert(*(sp21.operator->()) == 42);
+
+    // Test 11
+    SmrtPtr<int> sp24(new int(42));
+    SmrtPtr<int> sp25 = sp24;
+    assert(sp25.operator->() != nullptr);
+    assert(*(sp25.operator->()) == 42);
+
+    // Test 12
+    SmrtPtr<int> sp26(new int(42));
+    SmrtPtr<int> sp27(new int(84));
+    sp27 = sp26;
+    assert(sp27.operator->() != nullptr);
+    assert(*(sp27.operator->()) == 42);
+
+
+    // Test 13
+    SmrtPtr<int> ptr(new int(42));
+
+    assert(ptr);
+    assert(*ptr == 42);
+
+    ptr.reset(new int(99));
+
+    assert(ptr);
+    assert(*ptr == 99);
+
+    // Test 14
+    SmrtPtr<int> ptr2(new int(42));
+
+    assert(ptr2);
+
+    ptr2.reset();
+
+    assert(!ptr2);
+
+    // Test 15
+    SmrtPtr<int> ptr3(new int(42));
+
+    assert(ptr3);
+
+    int* releasedPtr = ptr3.release();
+
+    assert(*releasedPtr == 42);
+    assert(!ptr3);
+
+    delete releasedPtr;
+}
+
+
+void testSmartPointerDouble() {
+    // Тест 1
     SmrtPtr<double> spd1(new double(42.1));
     assert(static_cast<bool>(spd1) == true);
 
-    // Тест 7
+    // Тест 2
     SmrtPtr<double> spd2;
     assert(static_cast<bool>(spd2) == false);
 
-    // Тест 8
+    // Тест 3
     SmrtPtr<double> spd3(new double(42.2));
     assert(static_cast<bool>(spd3));
 
     spd3 = static_cast<const SmrtPtr<double>>(nullptr);
     assert(!static_cast<bool>(spd3));
 
-    // Тест 9
+    // Тест 4
     SmrtPtr<double> spd4(new double(42.32));
     const SmrtPtr<double>& spd5 = spd4;
 
     assert(static_cast<bool>(spd4) == true);
     assert(static_cast<bool>(spd5) == true);
 
-    // Тест 10
+    // Тест 5
     SmrtPtr<double> sp6(new double(42.1));
     SmrtPtr<double> sp7(new double(84.1));
     sp7 = sp6;
@@ -66,89 +139,48 @@ int main () {
     assert(static_cast<bool>(sp6) == true);
     assert(static_cast<bool>(sp7) == true);
 
-
-    //  Tests for the operator *, ==, !=
-    // Test 1
-    SmrtPtr<int> sp11(new int(42));
-    assert(*sp11 == 42);
-
-    // Test 2
-    SmrtPtr<int> sp13(new int(42));
-    SmrtPtr<int> sp14 = sp13;
-    assert(*sp14 == 42);
-
-    // Test 3
-    SmrtPtr<int> sp15(new int(42));
-    SmrtPtr<int> sp16(new int(84));
-    sp16 = sp15;
-    assert(*sp16 == 42);
-
-    // Test 4
-    SmrtPtr<int> sp17(new int(54));
-    *sp17 = 13;
-    assert(*sp17 == 13);
-
-    // Test 5
+    // Test 6
     SmrtPtr<double> spd11(new double(42.1));
     assert(*spd11 == 42.1);
-    assert(sp11.isNull() == 0);
+    assert(spd11.isNull() == 0);
 
-    // Test 6
+    // Test 7
     SmrtPtr<double> spd13(new double(42.1));
     SmrtPtr<double> spd14 = spd13;
     assert(*spd14 == 42.1);
 
-    // Test 7
+    // Test 8
     SmrtPtr<double> spd15(new double(42.123));
     SmrtPtr<double> spd16(new double(84.2));
     spd16 = spd15;
     assert(*spd16 == 42.123);
 
-    // Test 8
+    // Test 9
     SmrtPtr<double> spd17(new double(54.3));
     *spd17 = 13.1;
     assert(*spd17 == 13.1);
 
-
-    //  Tests for the operator ->, ==, !=
-    // Test 1
-    SmrtPtr<int> sp21(new int(42));
-    assert(sp21.operator->() != nullptr);
-    assert(*(sp21.operator->()) == 42);
-
-    // Test 2
-    SmrtPtr<int> sp24(new int(42));
-    SmrtPtr<int> sp25 = sp24;
-    assert(sp25.operator->() != nullptr);
-    assert(*(sp25.operator->()) == 42);
-
-    // Test 3
-    SmrtPtr<int> sp26(new int(42));
-    SmrtPtr<int> sp27(new int(84));
-    sp27 = sp26;
-    assert(sp27.operator->() != nullptr);
-    assert(*(sp27.operator->()) == 42);
-
-    // Test 4
+    // Test 10
     SmrtPtr<double> spd21(new double(42.1));
     assert(spd21.operator->() != nullptr);
     assert(*(spd21.operator->()) == 42.1);
 
-    // Test 5
+    // Test 11
     SmrtPtr<double> spd24(new double(42.1));
     SmrtPtr<double> spd25 = spd24;
     assert(spd25.operator->() != nullptr);
     assert(*(spd25.operator->()) == 42.1);
 
-    // Test 6
+    // Test 12
     SmrtPtr<double> spd26(new double(42.2));
     SmrtPtr<double> spd27(new double(84.2));
     spd27 = spd26;
     assert(spd27.operator->() != nullptr);
     assert(*(spd27.operator->()) == 42.2);
+}
 
 
-    // Tests for the operator [], ==
+void testSmartPointerArray() {
     //Test 1
     SmrtPtr<int[]> sp31(new int[5]{1, 2, 3, 4, 5});
 
@@ -161,16 +193,7 @@ int main () {
     sp32.operator[](1) = 10;
     assert(sp32.operator[](1) == 10);
 
-//    //Test 3
-//    SmrtPtr<int[]> sp33;
-//    try {
-//        sp33.operator[](0);
-//        assert(false);
-//    } catch (const exception& e) {
-//        assert(true);
-//    }
-
-    //Test 4
+    //Test 3
     SmrtPtr<int[]> sp44(new int[4]{1, 2, 3, 4});
     const SmrtPtr<int[]>& sp45 = sp44;
 
@@ -178,7 +201,7 @@ int main () {
         assert(sp45.operator[](i) == i + 1);
     }
 
-    //Test 5
+    //Test 4
     SmrtPtr<int[]> sp46(new int[3]{1, 2, 3});
     SmrtPtr<int[]> sp47(new int[3]{4, 5, 6});
     sp47 = sp46;
@@ -187,28 +210,19 @@ int main () {
         assert(sp47.operator[](i) == i + 1);
     }
 
-    //Test 6
+    //Test 5
     SmrtPtr<double[]> spd31(new double[5]{1.5, 2.5, 3.5, 4.5, 5.5});
 
     for (size_t i = 0; i < 5; ++i) {
         assert(spd31.operator[](i) == i + 1.5);
     }
 
-    //Test 7
+    //Test 6
     SmrtPtr<double[]> spd32(new double[3]{1.5, 2.5, 3.5});
     spd32.operator[](1) = 10.5;
     assert(spd32.operator[](1) == 10.5);
 
-//    //Test 8
-//    SmrtPtr<double[]> spd33;
-//    try {
-//        spd33.operator[](0);
-//        assert(false);
-//    } catch (const exception& e) {
-//        assert(true);
-//    }
-
-    //Test 9
+    //Test 7
     SmrtPtr<double[]> spd44(new double[4]{1.5, 2.5, 3.5, 4.5});
     const SmrtPtr<double[]>& spd45 = spd44;
 
@@ -216,7 +230,7 @@ int main () {
         assert(spd45.operator[](i) == i + 1.5);
     }
 
-    //Test 10
+    //Test 8
     SmrtPtr<double[]> spd46(new double[3]{1.5, 2.5, 3.5});
     SmrtPtr<double[]> spd47(new double[3]{4.5, 5.5, 6.5});
     spd47 = spd46;
@@ -224,67 +238,10 @@ int main () {
     for (size_t i = 0; i < 3; ++i) {
         assert(spd47.operator[](i) == i + 1.5);
     }
+}
 
 
-    // Tests for the operator =, ==
-    //Test 1
-    SmrtPtr<int> sp51(new int(42));
-    SmrtPtr<int> sp52;
-    sp52 = sp51;
-    assert(sp52.getRefCount() == 2);
-    assert(*sp52 == 42);
-
-    //Test 2
-    SmrtPtr<int[]> sp53(new int[3]{1, 2, 3});
-    SmrtPtr<int[]> sp54;
-    sp54 = sp53;
-    assert(sp54.getRefCount() == 2);
-
-    for (size_t i = 0; i < 3; ++i) {
-        assert(sp54.operator[](i) == i + 1);
-    }
-
-    //Test 3
-    SmrtPtr<int> sp55(new int(10));
-    sp55 = sp55;
-    assert(*sp55 == 10);
-
-    //Test 4
-    SmrtPtr<int> sp56(new int(5));
-    SmrtPtr<int> sp57;
-    sp57 = sp56;
-    sp57 = static_cast<const SmrtPtr<int>>(nullptr);
-    assert(!sp57);
-
-    //Test 5
-    SmrtPtr<double> spd51(new double(42.3));
-    SmrtPtr<double> spd52;
-    spd52 = spd51;
-    assert(*spd52 == 42.3);
-
-    //Test 6
-    SmrtPtr<double[]> spd53(new double[3]{1.5, 2.5, 3.5});
-    SmrtPtr<double[]> spd54;
-    spd54 = spd53;
-
-    for (size_t i = 0; i < 3; ++i) {
-        assert(spd54.operator[](i) == i + 1.5);
-    }
-
-    //Test 7
-    SmrtPtr<double> spd55(new double(10.1));
-    spd55 = spd55;
-    assert(*spd55 == 10.1);
-
-    //Test 8
-    SmrtPtr<double> spd56(new double(5.1));
-    SmrtPtr<double> spd57;
-    spd57 = spd56;
-    spd57 = static_cast<const SmrtPtr<double>>(nullptr);
-    assert(!spd57);
-
-
-    // Tests for push_back Dynamic Array
+void testDynamicArray() {
     // Test 1
     DynamicArray<int> arr1;
     arr1.push_back(42);
@@ -312,15 +269,13 @@ int main () {
     assert(arr3[1] == 10);
     assert(arr3[3] == 15);
 
-
-    // Tests for pop_back (dynamic array)
-    // Test 1
+    // Test 4
     DynamicArray<int> arr11;
     assert(arr11.getSize() == 0);
     arr11.pop_back();
     assert(arr11.getSize() == 0);
 
-    // Test 2
+    // Test 5
     DynamicArray<int> arr22;
     arr22.push_back(1);
     arr22.push_back(2);
@@ -333,7 +288,7 @@ int main () {
     assert(arr22[0] == 1);
     assert(arr22[1] == 2);
 
-    // Test 3
+    // Test 6
     DynamicArray<int> arr33;
     arr33.push_back(1);
     arr33.push_back(2);
@@ -347,7 +302,7 @@ int main () {
 
     assert(arr33.getSize() == 0);
 
-    // Test 4
+    // Test 7
     DynamicArray<int> arr44;
     assert(arr44.getSize() == 0);
 
@@ -357,9 +312,7 @@ int main () {
     arr44.pop_back();
     assert(arr44.getSize() == 9);
 
-
-    // Test for resize (dynamic array)
-    // Test 1
+    // Test 8
     DynamicArray<int> arr111;
     arr111.resize(5);
 
@@ -375,7 +328,7 @@ int main () {
         assert(arr111[i] == i);
     }
 
-    // Test 2
+    // Test 9
     DynamicArray<int> arr333;
     arr333.resize(4);
 
@@ -392,40 +345,38 @@ int main () {
         assert(arr333[i] == i);
     }
 
-    // Test 3
+    // Test 10
     DynamicArray<int> arr444;
     arr444.resize(5);
     assert(arr444.getSize() == 5);
     assert(arr444.getSize() == 5);
 
-
-    // Tests for (dynamic array)
-    // Test 1
+    // Test 11
     DynamicArray<int> arr1111;
     assert(arr1111.getSize() == 0);
 
-    // Test 2
+    // Test 12
     DynamicArray<int> arr2222;
     arr2222.push_back(1);
     arr2222.push_back(2);
     arr2222.push_back(3);
     assert(arr2222.getSize() == 3);
 
-    // Test 3
+    // Test 13
     DynamicArray<int> arr3333;
     arr3333.push_back(1);
     arr3333.push_back(2);
     arr3333.resize(5);
     assert(arr3333.getSize() == 5);
 
-    // Test 4
+    // Test 14
     DynamicArray<int> arr4444;
     arr4444.push_back(1);
     arr4444.push_back(2);
     arr4444.pop_back();
     assert(arr4444.getSize() == 1);
 
-    // Test 5
+    // Test 15
     DynamicArray<int> arr5555;
     arr5555.push_back(1);
     arr5555.push_back(2);
@@ -434,34 +385,32 @@ int main () {
     arr5555.resize(10);
     assert(arr5555.getSize() == 10);
 
-
-    // Tests for print (dynamic array)
-    // Test 1
+    // Test 16
     DynamicArray<int> arr11111;
     assert(arr11111.getSize() == 0);
 
-    // Test 2
+    // Test 17
     DynamicArray<int> arr22222;
     arr22222.push_back(1);
     arr22222.push_back(2);
     arr22222.push_back(3);
     assert(arr22222.getSize() == 3);
 
-    // Test 3
+    // Test 18
     DynamicArray<int> arr33333;
     arr33333.push_back(1);
     arr33333.push_back(2);
     arr33333.resize(5);
     assert(arr33333.getSize() == 5);
 
-    // Test 4
+    // Test 19
     DynamicArray<int> arr44444;
     arr44444.push_back(1);
     arr44444.push_back(2);
     arr44444.pop_back();
     assert(arr44444.getSize() == 1);
 
-    // Test 5
+    // Test 20
     DynamicArray<int> arr55555;
     arr55555.push_back(1);
     arr55555.push_back(2);
@@ -469,9 +418,10 @@ int main () {
     arr55555.push_back(3);
     arr55555.resize(10);
     assert(arr55555.getSize() == 10);
+}
 
 
-    // Tests for print(linked list)
+void testLinkedList() {
     // Test 1
     LinkedList<int> list1;
     assert(list1.getSize() == 0);
@@ -506,20 +456,18 @@ int main () {
     list5.resize(10);
     assert(list5.getSize() == 10);
 
-
-    // Tests for push_back (linked list)
-    // Test 1
+    // Test 6
     LinkedList<int> list11;
     list11.push_back(1);
     assert(list11.getSize() == 1);
 
-    // Test 2
+    // Test 7
     LinkedList<int> list12;
     list12.push_back(1);
     list12.push_back(2);
     assert(list12.getSize() == 2);
 
-    // Test 3
+    // Test 8
     LinkedList<int> list13;
     list13.push_back(1);
     list13.push_back(2);
@@ -527,26 +475,24 @@ int main () {
     list13.push_back(3);
     assert(list13.getSize() == 2);
 
-    // Test 4
+    // Test 9
     LinkedList<int> list16;
     list16.push_back(1);
     list16.push_back(2);
     list16.push_back(3);
     assert(list16.getSize() == 3);
 
-
-    // Tests for pop_back (linked list)
-    // Test 1
+    // Test 10
     LinkedList<int> list21;
     assert(list21.getSize() == 0);
 
-    // Test 2
+    // Test 11
     LinkedList<int> list22;
     list22.push_back(1);
     list22.pop_back();
     assert(list22.getSize() == 0);
 
-    // Test 3
+    // Test 12
     LinkedList<int> list23;
     list23.push_back(1);
     list23.push_back(2);
@@ -554,7 +500,7 @@ int main () {
     list23.pop_back();
     assert(list23.getSize() == 2);
 
-    // Test 4
+    // Test 13
     LinkedList<int> list24;
     list24.push_back(1);
     list24.push_back(2);
@@ -563,21 +509,19 @@ int main () {
     list24.pop_back();
     assert(list24.getSize() == 1);
 
-    // Test 5
+    // Test 14
     LinkedList<int> list25;
     list25.resize(5);
     list25.pop_back();
     assert(list25.getSize() == 4);
 
-    // Test 6
+    // Test 15
     LinkedList<int> list26;
     list26.resize(5);
     list26.pop_back();
     assert(list26.getSize() == 4);
 
-
-    // Tests for resize (linked list)
-    // Test 1
+    // Test 16
     LinkedList<int> list31;
     list31.push_back(1);
     list31.push_back(2);
@@ -585,7 +529,7 @@ int main () {
     list31.resize(2);
     assert(list31.getSize() == 2);
 
-    // Test 2
+    // Test 17
     LinkedList<int> list32;
     list32.push_back(1);
     list32.push_back(2);
@@ -593,7 +537,7 @@ int main () {
     list32.resize(3);
     assert(list32.getSize() == 3);
 
-    // Test 3
+    // Test 18
     LinkedList<int> list33;
     list33.push_back(1);
     list33.push_back(2);
@@ -601,36 +545,34 @@ int main () {
     list33.resize(5);
     assert(list33.getSize() == 5);
 
-    // Test 4
+    // Test 19
     LinkedList<int> list34;
     list34.push_back(1);
     list34.push_back(2);
     list34.push_back(3);
     assert(list34.getSize() == 3);
 
-    // Test 5
+    // Test 20
     LinkedList<int> list35;
     list35.resize(5);
     assert(list35.getSize() == 5);
 
-    // Test 6
+    // Test 21
     LinkedList<int> list36;
     assert(list36.getSize() == 0);
 
-
-    // Tests for getSize (linked list)
-    // Test 1
+    // Test 22
     LinkedList<int> list41;
     assert(list41.getSize() == 0);
 
-    // Test 2
+    // Test 23
     LinkedList<int> list42;
     list42.push_back(1);
     list42.push_back(2);
     list42.push_back(3);
     assert(list42.getSize() == 3);
 
-    // Test 3
+    // Test 24
     LinkedList<int> list43;
     list43.push_back(1);
     list43.push_back(2);
@@ -638,7 +580,7 @@ int main () {
     list43.pop_back();
     assert(list43.getSize() == 2);
 
-    // Test 4
+    // Test 25
     LinkedList<int> list44;
     list44.push_back(1);
     list44.push_back(2);
@@ -646,7 +588,7 @@ int main () {
     list44.resize(5);
     assert(list44.getSize() == 5);
 
-    // Test 5
+    // Test 26
     LinkedList<int> list45;
     list45.push_back(1);
     list45.push_back(2);
@@ -654,7 +596,7 @@ int main () {
     list45.resize(2);
     assert(list45.getSize() == 2);
 
-    // Test 6
+    // Test 27
     LinkedList<int> list46;
     list46.push_back(1);
     list46.push_back(2);
@@ -662,26 +604,24 @@ int main () {
     list46.resize(3);
     assert(list46.getSize() == 3);
 
-    // Test 7
+    // Test 28
     LinkedList<int> list47;
     list47.push_back(1);
     list47.push_back(2);
     list47.push_back(3);
     assert(list47.getSize() == 3);
 
-
-    // Tests for pop_back double (linked list)
-    // Test 1
+    // Test 29
     LinkedList<double> list1d;
     assert(list1d.getSize() == 0);
 
-    // Test 2
+    // Test 30
     LinkedList<double> list2d;
     list2d.push_back(1.1);
     list2d.pop_back();
     assert(list2d.getSize() == 0);
 
-    // Test 3
+    // Test 31
     LinkedList<double> list3d;
     list3d.push_back(1.2);
     list3d.push_back(2.3);
@@ -689,7 +629,7 @@ int main () {
     list3d.pop_back();
     assert(list3d.getSize() == 2);
 
-    // Test 4
+    // Test 32
     LinkedList<double> list4d;
     list4d.push_back(1.1);
     list4d.push_back(2.5);
@@ -698,30 +638,29 @@ int main () {
     list4d.pop_back();
     assert(list4d.getSize() == 1);
 
-    // Test 5
+    // Test 33
     LinkedList<double> list5d;
     list5d.resize(5);
     list5d.pop_back();
     assert(list5d.getSize() == 4);
 
-    // Test 6
+    // Test 34
     LinkedList<double> list6d;
     list6d.resize(5);
     list6d.pop_back();
     assert(list6d.getSize() == 4);
 
-    // Tests for pop_back char (linked list)
-    // Test 1
+    // Test 35
     LinkedList<char> list1char;
     assert(list1char.getSize() == 0);
 
-    // Test 2
+    // Test 36
     LinkedList<char> list2char;
     list2char.push_back('e');
     list2char.pop_back();
     assert(list2char.getSize() == 0);
 
-    // Test 3
+    // Test 37
     LinkedList<char> list3char;
     list3char.push_back('d');
     list3char.push_back('c');
@@ -729,7 +668,7 @@ int main () {
     list3char.pop_back();
     assert(list3d.getSize() == 2);
 
-    // Test 4
+    // Test 38
     LinkedList<char> list4char;
     list4char.push_back('q');
     list4char.push_back('w');
@@ -738,101 +677,30 @@ int main () {
     list4char.pop_back();
     assert(list4char.getSize() == 1);
 
-    // Test 5
+    // Test 39
     LinkedList<char> list5char;
     list5char.resize(5);
     list5char.pop_back();
     assert(list5char.getSize() == 4);
 
-    // Test 6
+    // Test 40
     LinkedList<char> list6char;
     list6char.resize(4);
     list6char.pop_back();
     assert(list6char.getSize() == 3);
+}
 
 
-    // Tests for pop_back char (dynamic array)
-    // Test 1
-    DynamicArray<int> arr1char;
-    assert(arr1char.getSize() == 0);
-    arr1char.pop_back();
-    assert(arr1char.getSize() == 0);
 
-    // Test 2
-    DynamicArray<int> arr2char;
-    arr2char.push_back('q');
-    arr2char.push_back('w');
-    arr2char.push_back('e');
-
-    assert(arr2char.getSize() == 3);
-    arr2char.pop_back();
-    assert(arr2char.getSize() == 2);
-
-    assert(arr2char[0] == 'q');
-    assert(arr2char[1] == 'w');
-
-    // Test 3
-    DynamicArray<int> arr3char;
-    arr3char.push_back('q');
-    arr3char.push_back('w');
-    arr3char.push_back('e');
-
-    assert(arr3char.getSize() == 3);
-
-    while (arr3char.getSize() > 0) {
-        arr3char.pop_back();
-    }
-
-    assert(arr3char.getSize() == 0);
-
-    // Test 4
-    DynamicArray<int> arr4char;
-    assert(arr4char.getSize() == 0);
-
-    arr4char.resize(10);
-    assert(arr4char.getSize() == 10);
-
-    arr4char.pop_back();
-    assert(arr4char.getSize() == 9);
-
-    arr4char.pop_back();
-    assert(arr4char.getSize() == 8);
-
-
-    // Tests for reset
-    // Test 1
-    SmrtPtr<int> ptr(new int(42));
-
-    assert(ptr);
-    assert(*ptr == 42);
-
-    ptr.reset(new int(99));
-
-    assert(ptr);
-    assert(*ptr == 99);
-
-    // Test 2
-    SmrtPtr<int> ptr2(new int(42));
-
-    assert(ptr2);
-
-    ptr2.reset();
-
-    assert(!ptr2);
-
-
-    // Test for release
-    SmrtPtr<int> ptr3(new int(42));
-
-    assert(ptr3);
-
-    int* releasedPtr = ptr3.release();
-
-    assert(*releasedPtr == 42);
-    assert(!ptr3);
-
-    delete releasedPtr;
-
+int main () {
+    testSmartPointerInt();
+    testSmartPointerDouble();
+    testSmartPointerArray();
+    testDynamicArray();
+    testLinkedList();
 
     cout << "All tests were checked successfully!" << endl;
+    cout << "Press any bottom to end the programme" << endl;
+    cin.get();
+    return 0;
 }
