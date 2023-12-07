@@ -5,6 +5,23 @@ using namespace std;
 
 
 template <typename T>
+void releaseResources(T* ptr, size_t* refCount) {
+    if (refCount && --(*refCount) == 0) {
+        delete ptr;
+        delete refCount;
+    }
+}
+
+template <typename T>
+void releaseArrayResources(T* ptr, size_t* refCount) {
+    if (refCount && --(*refCount) == 0) {
+        delete[] ptr;
+        delete refCount;
+    }
+}
+
+
+template <typename T>
 class SmrtPtr {
 public:
     SmrtPtr() {
@@ -28,10 +45,7 @@ public:
 
     SmrtPtr& operator =(const SmrtPtr<T>& other) {
         if (this != &other) {
-            if (refCount && --(*refCount) == 0) {
-                delete ptr;
-                delete refCount;
-            }
+            releaseResources(ptr, refCount);
 
             ptr = other.ptr;
             refCount = other.refCount;
@@ -76,10 +90,7 @@ public:
     }
 
     void reset(T* newPtr = nullptr, size_t newSize = 0) {
-        if (refCount && --(*refCount) == 0) {
-            delete ptr;
-            delete refCount;
-        }
+        releaseResources(ptr, refCount);
 
         ptr = newPtr;
         refCount = new size_t(1);
@@ -92,19 +103,13 @@ public:
         ptr = nullptr;
         refCount = nullptr;
 
-        if (releasedRefCount && --(*releasedRefCount) == 0) {
-            delete releasedPtr;
-            delete releasedRefCount;
-        }
+        releaseResources(ptr, refCount);
 
         return releasedPtr;
     }
 
     ~SmrtPtr() {
-        if (refCount && --(*refCount) == 0) {
-            delete ptr;
-            delete refCount;
-        }
+        releaseResources(ptr, refCount);
     }
 
 private:
@@ -137,10 +142,7 @@ public:
 
     SmrtPtr<T[]>& operator =(const SmrtPtr<T[]>& other) {
         if (this != &other) {
-            if (refCount && --(*refCount) == 0) {
-                delete[] ptr;
-                delete refCount;
-            }
+            releaseArrayResources(ptr, refCount);
 
             ptr = other.ptr;
             refCount = other.refCount;
@@ -190,10 +192,7 @@ public:
 
     void reset(T* newPtr = nullptr, size_t newSize = 0) {
         if (this->ptr != newPtr) {
-            if (refCount && --(*refCount) == 0) {
-                delete[] ptr;
-                delete refCount;
-            }
+            releaseArrayResources(ptr, refCount);
 
             ptr = newPtr;
             refCount = new size_t(1);
@@ -201,10 +200,7 @@ public:
     }
 
     ~SmrtPtr() {
-        if (refCount && --(*refCount) == 0) {
-            delete[] ptr;
-            delete refCount;
-        }
+        releaseArrayResources(ptr, refCount);
     }
 
 private:

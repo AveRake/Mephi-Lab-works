@@ -38,8 +38,8 @@ void showSequencesType() {
 }
 
 
-template<typename T>
-void runArray(DynamicArray<T>& arr, int menuChoice, int* dataType, int* sequencesChoice) {
+template<typename T, typename SequenceType>
+void runSequence(SequenceType& sequence, int menuChoice, int* dataType, int* sequencesChoice) {
     switch (menuChoice) {
         case 1:
             T newItem;
@@ -47,11 +47,11 @@ void runArray(DynamicArray<T>& arr, int menuChoice, int* dataType, int* sequence
             cout << ">>> ";
             cin >> newItem;
             cout << endl << endl;
-            arr.push_back(newItem);
+            sequence.push_back(newItem);
             break;
         case 2:
             cout << "Operation pop back is done successfully" << endl << endl;
-            arr.pop_back();
+            sequence.pop_back();
             break;
         case 3:
             int newSize;
@@ -59,13 +59,13 @@ void runArray(DynamicArray<T>& arr, int menuChoice, int* dataType, int* sequence
             cout << ">>> ";
             cin >> newSize;
             cout << endl << endl;
-            arr.resize(newSize);
+            sequence.resize(newSize);
             break;
         case 4:
-            cout << "Size of your Sequence is " << arr.getSize() << endl << endl;
+            cout << "Size of your Sequence is " << sequence.getSize() << endl << endl;
             break;
         case 5:
-            arr.print();
+            sequence.print();
             cout << endl;
             break;
         case 6:
@@ -81,8 +81,8 @@ void runArray(DynamicArray<T>& arr, int menuChoice, int* dataType, int* sequence
                 cout << endl;
             }
 
-            while (arr.getSize() != 0) {
-                arr.pop_back();
+            while (sequence.getSize() != 0) {
+                sequence.pop_back();
             }
             break;
         case 7:
@@ -98,8 +98,8 @@ void runArray(DynamicArray<T>& arr, int menuChoice, int* dataType, int* sequence
                 cout << endl;
             }
 
-            while (arr.getSize() != 0) {
-                arr.pop_back();
+            while (sequence.getSize() != 0) {
+                sequence.pop_back();
             }
             break;
         case 8:
@@ -108,7 +108,7 @@ void runArray(DynamicArray<T>& arr, int menuChoice, int* dataType, int* sequence
             cout << ">>> ";
             cin >> index;
             cout << endl;
-            arr.getIndex(index);
+            sequence.getIndex(index);
             break;
         case 9:
             T item;
@@ -122,103 +122,7 @@ void runArray(DynamicArray<T>& arr, int menuChoice, int* dataType, int* sequence
             cin >> item;
             cout << endl;
 
-            arr.setIndex(item, index);
-            break;
-        case 0:
-            cout << "exiting" << endl << endl;
-            break;
-        default:
-            cout << "Wrong choice, try again\n" << endl;
-            break;
-    }
-}
-
-
-template<typename T>
-void runList(LinkedList<T>& list, int menuChoice, int* dataType, int* sequencesChoice) {
-    switch (menuChoice) {
-        case 1:
-            T newItem;
-            cout << "Enter the item that you want push_back" << endl;
-            cout << ">>> ";
-            cin >> newItem;
-            cout << endl << endl;
-            list.push_back(newItem);
-            break;
-        case 2:
-            cout << "Operation pop back is done successfully" << endl << endl;
-            list.pop_back();
-            break;
-        case 3:
-            int newSize;
-            cout << "Enter newSize for your Sequence" << endl;
-            cout << ">>> ";
-            cin >> newSize;
-            cout << endl << endl;
-            list.resize(newSize);
-            break;
-        case 4:
-            cout << "Size of your Sequence is " << list.getSize() << endl << endl;
-            break;
-        case 5:
-            list.print();
-            cout << endl;
-            break;
-        case 6:
-            showDataType();
-            cin >> *(dataType);
-            cout << endl;
-
-            if (*(dataType) != 1 && *(dataType) != 2 && *(dataType) != 3) {
-                cout << "Wrong choice!" << endl;
-                cout << "Try again" << endl;
-                showDataType();
-                cin >> *(dataType);
-                cout << endl;
-            }
-
-            while (list.getSize() != 0) {
-                list.pop_back();
-            }
-            break;
-        case 7:
-            showSequencesType();
-            cin >> *(sequencesChoice);
-            cout << endl;
-
-            if (*(sequencesChoice) != 1 && *(sequencesChoice) != 2) {
-                cout << "Wrong choice!" << endl;
-                cout << "Try again" << endl;
-                showSequencesType();
-                cin >> *(sequencesChoice);
-                cout << endl;
-            }
-
-            while (list.getSize() != 0) {
-                list.pop_back();
-            }
-            break;
-        case 8:
-            int index;
-            cout << "Enter the number of index" << endl;
-            cout << ">>> ";
-            cin >> index;
-            cout << endl;
-            list.getIndex(index);
-            break;
-        case 9:
-            T item;
-            cout << "Enter the number of index" << endl;
-            cout << ">>> ";
-            cin >> index;
-            cout << endl;
-
-            cout << "Enter the item" << endl;
-            cout << ">>> ";
-            cin >> item;
-            cout << endl;
-
-            list.setIndex(item, index);
+            sequence.setIndex(item, index);
             break;
         case 0:
             cout << "exiting" << endl << endl;
@@ -274,21 +178,21 @@ int main() {
         switch (dataType) {
             case 1:
                 if (sequencesChoice == 1)
-                    runArray(intArray, menuChoice, &dataType, &sequencesChoice);
+                    runSequence<int, DynamicArray<int>>(intArray, menuChoice, &dataType, &sequencesChoice);
                 else if (sequencesChoice == 2)
-                    runList(intList, menuChoice, &dataType, &sequencesChoice);
+                    runSequence<int, LinkedList<int>>(intList, menuChoice, &dataType, &sequencesChoice);
                 break;
             case 2:
                 if (sequencesChoice == 1)
-                    runArray(doubleArray, menuChoice, &dataType, &sequencesChoice);
+                    runSequence<double, DynamicArray<double>>(doubleArray, menuChoice, &dataType, &sequencesChoice);
                 else if (sequencesChoice == 2)
-                    runList(doubleList, menuChoice, &dataType, &sequencesChoice);
+                    runSequence<double, LinkedList<double>>(doubleList, menuChoice, &dataType, &sequencesChoice);
                 break;
             case 3:
                 if (sequencesChoice == 1)
-                    runArray(charArray, menuChoice, &dataType, &sequencesChoice);
+                    runSequence<char, DynamicArray<char>>(charArray, menuChoice, &dataType, &sequencesChoice);
                 else if (sequencesChoice == 2)
-                    runList(charList, menuChoice, &dataType, &sequencesChoice);
+                    runSequence<char, LinkedList<char>>(charList, menuChoice, &dataType, &sequencesChoice);
                 break;
             default:
                 break;
