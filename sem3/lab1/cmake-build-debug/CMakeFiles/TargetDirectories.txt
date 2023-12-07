@@ -1,5 +1,0 @@
-C:/ClionProjects/sem3/lab1/cmake-build-debug/CMakeFiles/Sem3Lab1.dir
-C:/ClionProjects/sem3/lab1/cmake-build-debug/CMakeFiles/Sem3Lab1Testing.dir
-C:/ClionProjects/sem3/lab1/cmake-build-debug/CMakeFiles/Sem3Lab1Benchmark.dir
-C:/ClionProjects/sem3/lab1/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/ClionProjects/sem3/lab1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
