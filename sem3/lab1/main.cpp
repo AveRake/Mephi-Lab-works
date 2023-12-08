@@ -3,6 +3,15 @@
 #include <limits>
 
 
+template<typename T>
+void fillValue(T* item) {
+    cout << "Enter the value" << endl;
+    cout << ">>> ";
+    cin >> (*item);
+    cout << endl << endl;
+}
+
+
 void showMenu() {
     cout << " ------------------------------------------------------------" << endl;
     cout << "|Press 1 if you want add item for your sequence              |" << endl;
@@ -43,10 +52,7 @@ void runSequence(SequenceType& sequence, int menuChoice, int* dataType, int* seq
     switch (menuChoice) {
         case 1:
             T newItem;
-            cout << "Enter the item that you want push_back" << endl;
-            cout << ">>> ";
-            cin >> newItem;
-            cout << endl << endl;
+            fillValue(&newItem);
             sequence.push_back(newItem);
             break;
         case 2:
@@ -55,10 +61,7 @@ void runSequence(SequenceType& sequence, int menuChoice, int* dataType, int* seq
             break;
         case 3:
             int newSize;
-            cout << "Enter newSize for your Sequence" << endl;
-            cout << ">>> ";
-            cin >> newSize;
-            cout << endl << endl;
+            fillValue(&newSize);
             sequence.resize(newSize);
             break;
         case 4:
@@ -104,25 +107,15 @@ void runSequence(SequenceType& sequence, int menuChoice, int* dataType, int* seq
             break;
         case 8:
             int index;
-            cout << "Enter the number of index" << endl;
-            cout << ">>> ";
-            cin >> index;
-            cout << endl;
+            fillValue(&index);
             sequence.getIndex(index);
             break;
         case 9:
-            T item;
-            cout << "Enter the number of index" << endl;
-            cout << ">>> ";
-            cin >> index;
-            cout << endl;
-
-            cout << "Enter the item" << endl;
-            cout << ">>> ";
-            cin >> item;
-            cout << endl;
-
-            sequence.setIndex(item, index);
+            cout << "First is index!" << endl;
+            fillValue(&index);
+            cout << "Second is new item!" << endl;
+            fillValue(&newItem);
+            sequence.setIndex(newItem, index);
             break;
         case 0:
             cout << "exiting" << endl << endl;

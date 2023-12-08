@@ -54,6 +54,10 @@ private:
     }
 
     static void testComparison() {
+        SmrtPtr<T> sp11(new T(42));
+        SmrtPtr<T> sp12(new T(84));
+        assert(sp11!= sp12);
+
         SmrtPtr<T> sp13(new T(42));
         SmrtPtr<T> sp14(new T(84));
         sp14 = sp13;
