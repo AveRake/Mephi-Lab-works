@@ -1,9 +1,9 @@
-#include "Sequence.h"
-#include "Sorting.h"
-#include "SmartPointers.h"
+#include "sequence.h"
+#include "sorting.h"
+#include "smartPointers.h"
 
 
-void dataType() {
+void showDataType() {
     cout << " ------------------------" << endl;
     cout << "|For type int press 1    |" << endl;
     cout << "|For type double press 2 |" << endl;
@@ -12,7 +12,7 @@ void dataType() {
     cout << ">>> ";
 }
 
-void sequenceType() {
+void showSequencesType() {
     cout << " ---------------------------------------------------------------------" << endl;
     cout << "|Choose the sequences that you want to use for testing Sorts methods  |" << endl;
     cout << "|Press 1 for Dynamic Array                                            |" << endl;
@@ -21,7 +21,7 @@ void sequenceType() {
     cout << ">>> ";
 }
 
-void menu() {
+void showMenu() {
     cout << " ------------------------------------------------------------" << endl;
     cout << "|Press 1 if you want add item for your sequence              |" << endl;
     cout << "|Press 2 if you want delete item from your sequence          |" << endl;
@@ -39,34 +39,170 @@ void menu() {
 }
 
 
+void findWayOfSorting(int* method) {
+    cout << "How you want sorting your array?" << endl;
+    cout << "Press 1 for sort in ascending order" << endl;
+    cout << "Press 2 for sort descending" << endl;
+    cout << ">>> ";
+    cin >> (*method);
+    cout << endl;
+}
+
+
+template<typename T, typename SequenceType>
+void runSequence(SequenceType& sequence, int menuChoice, int* dataType, int* sequencesChoice) {
+    int method;
+    switch (menuChoice) {
+        case 1:
+            T item;
+            cout << "Enter the item that you want push_back" << endl;
+            cout << ">>> ";
+            cin >> item;
+            cout << endl << endl;
+            sequence.push_back(item);
+            break;
+        case 2:
+            cout << "operation pop back is done successfully" << endl << endl;
+            sequence.pop_back();
+            break;
+        case 3:
+            sequence.print();
+            cout << endl;
+            break;
+        case 4:
+            showDataType();
+            cin >> *(dataType);
+            cout << endl;
+
+            if (*(dataType) != 1 && *(dataType) != 2 && *(dataType) != 3) {
+                cout << "Wrong choice!" << endl;
+                cout << "Try again" << endl;
+                showDataType();
+                cin >> *(dataType);
+                cout << endl;
+            }
+
+            while (sequence.getSize() != 0) {
+                sequence.pop_back();
+            }
+            break;
+        case 5:
+            showSequencesType();
+            cin >> *(sequencesChoice);
+            cout << endl;
+
+            if (*(sequencesChoice) != 1 && *(sequencesChoice) != 2) {
+                cout << "Wrong choice!" << endl;
+                cout << "Try again" << endl;
+                showSequencesType();
+                cin >> *(sequencesChoice);
+                cout << endl;
+            }
+
+            while (sequence.getSize() != 0) {
+                sequence.pop_back();
+            }
+            break;
+        case 6:
+            findWayOfSorting(&method);
+            if (method == 1)
+                bubbleSort(sequence);
+            else if (method == 2)
+                bubbleSort(sequence, false);
+            else {
+                cout << "Wrong choice!" << endl;
+                cout << "Try again" << endl;
+                findWayOfSorting(&method);
+            }
+            break;
+        case 7:
+            findWayOfSorting(&method);
+            if (method == 1)
+                insertionSort(sequence);
+            else if (method == 2)
+                insertionSort(sequence, false);
+            else {
+                cout << "Wrong choice!" << endl;
+                cout << "Try again" << endl;
+                findWayOfSorting(&method);
+            }
+            break;
+        case 8:
+            findWayOfSorting(&method);
+            if (method == 1)
+                mergeSort(sequence);
+            else if (method == 2)
+                mergeSort(sequence, false);
+            else {
+                cout << "Wrong choice!" << endl;
+                cout << "Try again" << endl;
+                findWayOfSorting(&method);
+            }
+            break;
+        case 9:
+            findWayOfSorting(&method);
+            if (method == 1)
+                shellSort(sequence);
+            else if (method == 2)
+                shellSort(sequence, false);
+            else {
+                cout << "Wrong choice!" << endl;
+                cout << "Try again" << endl;
+                findWayOfSorting(&method);
+            }
+            break;
+        case 10:
+            findWayOfSorting(&method);
+            if (method == 1)
+                heapSort(sequence);
+            else if (method == 2)
+                heapSort(sequence, false);
+            else {
+                cout << "Wrong choice!" << endl;
+                cout << "Try again" << endl;
+                findWayOfSorting(&method);
+            }
+            break;
+        case 0:
+            cout << "exiting" << endl << endl;
+            menuChoice = 0;
+            break;
+        default:
+            cout << "Wrong choice, try again\n" << endl;
+            break;
+    }
+}
+
+
 int main() {
     cout << "Welcome to the programme about sorting methods" << endl;
-    int sequenceChoice;
-    sequenceType();
-    cin >> sequenceChoice;
+    int sequencesChoice;
+    showSequencesType();
+    cin >> sequencesChoice;
     cout << endl;
 
-    if (sequenceChoice != 1 && sequenceChoice != 2) {
+    if (sequencesChoice != 1 && sequencesChoice != 2) {
         cout << "Wrong type of sequences" <<endl;
         cout << "Try again!" << endl;
-        sequenceType();
-        cin >> sequenceChoice;
+        showSequencesType();
+        cin >> sequencesChoice;
         cout << endl;
     }
 
-    int dataChoice;
-    dataType();
-    cin >> dataChoice;
+    int dataType;
+    showDataType();
+    cin >> dataType;
     cout << endl;
 
-    if (dataChoice != 1 && dataChoice != 2 && dataChoice != 3) {
+    if (dataType != 1 && dataType != 2 && dataType != 3) {
         cout << "Wrong type of sequences" <<endl;
         cout << "Try again!" << endl;
-        dataType();
-        cin >> dataChoice;
+        showDataType();
+        cin >> dataType;
         cout << endl;
     }
 
+    int menuChoice = 1;
     LinkedList<int> intList;
     LinkedList<double> doubleList;
     LinkedList<char> charList;
@@ -74,832 +210,32 @@ int main() {
     DynamicArray<double> doubleArray;
     DynamicArray<char> charArray;
 
-    int menuChoice = 1;
-    int item;
-    double doubleItem;
-    char charItem;
-    int method;
-
     while (menuChoice != 0) {
-        if (sequenceChoice == 1) {
-            if (dataChoice == 1) {
-                menu();
-                cin >> menuChoice;
-                cout << endl;
-                switch (menuChoice) {
-                    case 1:
-                        cout << "Enter the item that you want push_back" << endl;
-                        cout << ">>> ";
-                        cin >> item;
-                        cout << endl << endl;
-                        intArray.push_back(item);
-                        break;
-                    case 2:
-                        cout << "operation pop back is done successfully" << endl << endl;
-                        intArray.pop_back();
-                        break;
-                    case 3:
-                        intArray.print();
-                        cout << endl;
-                        break;
-                    case 4:
-                        dataType();
-                        cin >> dataChoice;
-                        cout << endl;
-                        while (intArray.getSize() != 0) {
-                            intArray.pop_back();
-                        }
-                        break;
-                    case 5:
-                        sequenceType();
-                        cin >> sequenceChoice;
-                        cout << endl;
-                        while (intArray.getSize() != 0) {
-                            intArray.pop_back();
-                        }
-                        break;
-                    case 6:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
+        showMenu();
+        cin >> menuChoice;
+        cout << endl;
 
-                        if (method == 1)
-                            bubbleSort(intArray);
-                        else if (method == 2)
-                            bubbleSort(intArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 7:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            insertionSort(intArray);
-                        else if (method == 2)
-                            insertionSort(intArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 8:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            mergeSort(intArray);
-                        else if (method == 2)
-                            mergeSort(intArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 9:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            shellSort(intArray);
-                        else if (method == 2)
-                            shellSort(intArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 10:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            heapSort(intArray);
-                        else if (method == 2)
-                            heapSort(intArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 0:
-                        cout << "exiting" << endl << endl;
-                        menuChoice = 0;
-                        break;
-                    default:
-                        cout << "Wrong choice, try again\n" << endl;
-                        break;
-                }
-            }
-
-            if (dataChoice == 2) {
-                menu();
-                cin >> menuChoice;
-                cout << endl;
-                switch (menuChoice) {
-                    case 1:
-                        cout << "Enter the item that you want push_back" << endl;
-                        cout << ">>> ";
-                        cin >> doubleItem;
-                        cout << endl << endl;
-                        doubleArray.push_back(doubleItem);
-                        break;
-                    case 2:
-                        cout << "operation pop back is done successfully" << endl << endl;
-                        doubleArray.pop_back();
-                        break;
-                    case 3:
-                        doubleArray.print();
-                        cout << endl;
-                        break;
-                    case 4:
-                        dataType();
-                        cin >> dataChoice;
-                        cout << endl;
-                        while (doubleArray.getSize() != 0) {
-                            doubleArray.pop_back();
-                        }
-                        break;
-                    case 5:
-                        sequenceType();
-                        cin >> sequenceChoice;
-                        cout << endl;
-                        while (doubleArray.getSize() != 0) {
-                            doubleArray.pop_back();
-                        }
-                        break;
-                    case 6:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            bubbleSort(doubleArray);
-                        else if (method == 2)
-                            bubbleSort(doubleArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 7:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            insertionSort(doubleArray);
-                        else if (method == 2)
-                            insertionSort(doubleArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 8:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            mergeSort(doubleArray);
-                        else if (method == 2)
-                            mergeSort(doubleArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 9:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            shellSort(doubleArray);
-                        else if (method == 2)
-                            shellSort(doubleArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 10:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            heapSort(intArray);
-                        else if (method == 2)
-                            heapSort(intArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 0:
-                        cout << "exiting" << endl << endl;
-                        menuChoice = 0;
-                        break;
-                    default:
-                        cout << "Wrong choice, try again\n" << endl;
-                        break;
-                }
-            }
-
-            if (dataChoice == 3) {
-                menu();
-                cin >> menuChoice;
-                cout << endl;
-                switch (menuChoice) {
-                    case 1:
-                        cout << "Enter the item that you want push_back" << endl;
-                        cout << ">>> ";
-                        cin >> charItem;
-                        cout << endl << endl;
-                        charArray.push_back(charItem);
-                        break;
-                    case 2:
-                        cout << "operation pop back is done successfully" << endl << endl;
-                        charArray.pop_back();
-                        break;
-                    case 3:
-                        charArray.print();
-                        cout << endl;
-                        break;
-                    case 4:
-                        dataType();
-                        cin >> dataChoice;
-                        cout << endl;
-                        while (charArray.getSize() != 0) {
-                            charArray.pop_back();
-                        }
-                        break;
-                    case 5:
-                        sequenceType();
-                        cin >> sequenceChoice;
-                        cout << endl;
-                        while (charArray.getSize() != 0) {
-                            charArray.pop_back();
-                        }
-                        break;
-                    case 6:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            bubbleSort(charArray);
-                        else if (method == 2)
-                            bubbleSort(charArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 7:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            insertionSort(charArray);
-                        else if (method == 2)
-                            insertionSort(charArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 8:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            mergeSort(charArray);
-                        else if (method == 2)
-                            mergeSort(charArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 9:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            shellSort(charArray);
-                        else if (method == 2)
-                            shellSort(charArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 10:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            heapSort(charArray);
-                        else if (method == 2)
-                            heapSort(charArray, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 0:
-                        cout << "exiting" << endl << endl;
-                        menuChoice = 0;
-                        break;
-                    default:
-                        cout << "Wrong choice, try again\n" << endl;
-                        break;
-                }
-            }
-        }
-
-
-        if (sequenceChoice == 2) {
-            if (dataChoice == 1) {
-                menu();
-                cin >> menuChoice;
-                cout << endl;
-                switch (menuChoice) {
-                    case 1:
-                        cout << "Enter the item that you want push_back" << endl;
-                        cout << ">>> ";
-                        cin >> item;
-                        cout << endl << endl;
-                        intList.push_back(item);
-                        break;
-                    case 2:
-                        cout << "operation pop back is done successfully" << endl << endl;
-                        intList.pop_back();
-                        break;
-                    case 3:
-                        intList.print();
-                        cout << endl;
-                        break;
-                    case 4:
-                        dataType();
-                        cin >> dataChoice;
-                        cout << endl;
-                        while (intList.getSize() != 0) {
-                            intList.pop_back();
-                        }
-                        break;
-                    case 5:
-                        sequenceType();
-                        cin >> sequenceChoice;
-                        cout << endl;
-                        while (intList.getSize() != 0) {
-                            intList.pop_back();
-                        }
-                        break;
-                    case 6:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            bubbleSort(intList);
-                        else if (method == 2)
-                            bubbleSort(intList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 7:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            insertionSort(intList);
-                        else if (method == 2)
-                            insertionSort(intList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 8:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            mergeSort(intList);
-                        else if (method == 2)
-                            mergeSort(intList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 9:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            shellSort(intList);
-                        else if (method == 2)
-                            shellSort(intList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 10:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            heapSort(intList);
-                        else if (method == 2)
-                            heapSort(intList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 0:
-                        cout << "exiting" << endl << endl;
-                        menuChoice = 0;
-                        break;
-                    default:
-                        cout << "Wrong choice, try again\n" << endl;
-                        break;
-                }
-            }
-
-            if (dataChoice == 2) {
-                menu();
-                cin >> menuChoice;
-                cout << endl;
-                switch (menuChoice) {
-                    case 1:
-                        cout << "Enter the item that you want push_back" << endl;
-                        cout << ">>> ";
-                        cin >> doubleItem;
-                        cout << endl << endl;
-                        doubleList.push_back(doubleItem);
-                        break;
-                    case 2:
-                        cout << "operation pop back is done successfully" << endl << endl;
-                        doubleList.pop_back();
-                        break;
-                    case 3:
-                        doubleList.print();
-                        cout << endl;
-                        break;
-                    case 4:
-                        dataType();
-                        cin >> dataChoice;
-                        cout << endl;
-                        while (doubleList.getSize() != 0) {
-                            doubleList.pop_back();
-                        }
-                        break;
-                    case 5:
-                        sequenceType();
-                        cin >> sequenceChoice;
-                        cout << endl;
-                        while (doubleList.getSize() != 0) {
-                            doubleList.pop_back();
-                        }
-                        break;
-                    case 6:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            bubbleSort(doubleList);
-                        else if (method == 2)
-                            bubbleSort(doubleList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 7:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            insertionSort(doubleList);
-                        else if (method == 2)
-                            insertionSort(doubleList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 8:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            mergeSort(doubleList);
-                        else if (method == 2)
-                            mergeSort(doubleList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 9:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            shellSort(doubleList);
-                        else if (method == 2)
-                            shellSort(doubleList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 10:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            heapSort(doubleList);
-                        else if (method == 2)
-                            heapSort(doubleList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 0:
-                        cout << "exiting" << endl << endl;
-                        menuChoice = 0;
-                        break;
-                    default:
-                        cout << "Wrong choice, try again\n" << endl;
-                        break;
-                }
-            }
-
-            if (dataChoice == 3) {
-                menu();
-                cin >> menuChoice;
-                cout << endl;
-                switch (menuChoice) {
-                    case 1:
-                        cout << "Enter the item that you want push_back" << endl;
-                        cout << ">>> ";
-                        cin >> charItem;
-                        cout << endl << endl;
-                        charList.push_back(charItem);
-                        break;
-                    case 2:
-                        cout << "operation pop back is done successfully" << endl << endl;
-                        charList.pop_back();
-                        break;
-                    case 3:
-                        charList.print();
-                        cout << endl;
-                        break;
-                    case 4:
-                        dataType();
-                        cin >> dataChoice;
-                        cout << endl;
-                        while (charList.getSize() != 0) {
-                            charList.pop_back();
-                        }
-                        break;
-                    case 5:
-                        sequenceType();
-                        cin >> sequenceChoice;
-                        cout << endl;
-                        while (charList.getSize() != 0) {
-                            charList.pop_back();
-                        }
-                        break;
-                    case 6:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            bubbleSort(charList);
-                        else if (method == 2)
-                            bubbleSort(charList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 7:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            insertionSort(charList);
-                        else if (method == 2)
-                            insertionSort(charList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 8:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            mergeSort(charList);
-                        else if (method == 2)
-                            mergeSort(charList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 9:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            shellSort(charList);
-                        else if (method == 2)
-                            shellSort(charList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 10:
-                        cout << "How you want sorting your array?" << endl;
-                        cout << "Press 1 for sort in ascending order" << endl;
-                        cout << "Press 2 for sort descending" << endl;
-                        cout << ">>> ";
-                        cin >> method;
-                        cout << endl;
-
-                        if (method == 1)
-                            heapSort(charList);
-                        else if (method == 2)
-                            heapSort(charList, false);
-                        else {
-                            cout << "Wrong choice!" << endl;
-                            system("pause");
-                            exit(-1);
-                        }
-                        break;
-                    case 0:
-                        cout << "exiting" << endl << endl;
-                        menuChoice = 0;
-                        break;
-                    default:
-                        cout << "Wrong choice, try again\n" << endl;
-                        break;
-                }
-            }
+        switch (dataType) {
+            case 1:
+                if (sequencesChoice == 1)
+                    runSequence<int, DynamicArray<int>>(intArray, menuChoice, &dataType, &sequencesChoice);
+                else if (sequencesChoice == 2)
+                    runSequence<int, LinkedList<int>>(intList, menuChoice, &dataType, &sequencesChoice);
+                break;
+            case 2:
+                if (sequencesChoice == 1)
+                    runSequence<double, DynamicArray<double>>(doubleArray, menuChoice, &dataType, &sequencesChoice);
+                else if (sequencesChoice == 2)
+                    runSequence<double, LinkedList<double>>(doubleList, menuChoice, &dataType, &sequencesChoice);
+                break;
+            case 3:
+                if (sequencesChoice == 1)
+                    runSequence<char, DynamicArray<char>>(charArray, menuChoice, &dataType, &sequencesChoice);
+                else if (sequencesChoice == 2)
+                    runSequence<char, LinkedList<char>>(charList, menuChoice, &dataType, &sequencesChoice);
+                break;
+            default:
+                break;
         }
     }
 

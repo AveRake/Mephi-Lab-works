@@ -1,5 +1,5 @@
-#include "SequencesTesting.h"
-#include "SortingMethodsTesting.h"
+#include "sequencesTesting.h"
+#include "sortingMethodsTesting.h"
 
 
 int main() {
