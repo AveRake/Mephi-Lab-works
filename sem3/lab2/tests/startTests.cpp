@@ -3,8 +3,6 @@
 
 
 int main() {
-    startDynamicArrayTests();
-    startLinkedListTests();
     SortsTesting(1);
     SortsTesting(2);
     SortsTesting(3);
