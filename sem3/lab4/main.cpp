@@ -39,8 +39,14 @@ void processGraph(graph<T>& g, int methods, T firstEdges, T secondEdges) {
             std::cin >> firstEdges;
             std::cout << "To which edge will we look for a path = " ;
             std::cin >> secondEdges;
-            g.shortestPath(firstEdges, secondEdges);
+
+            if (g.shortestPath(firstEdges, secondEdges) != -1) {
+                std::cout << "Shortest path distance: " << g.shortestPath(firstEdges, secondEdges) << std::endl;
+            } else {
+                std::cout << "No path exists." << std::endl;
+            }
             std::cout << std::endl;
+
             break;
         case 4:
             std::cout << "From what edge Traveling Salesman Path will start = ";
@@ -52,6 +58,12 @@ void processGraph(graph<T>& g, int methods, T firstEdges, T secondEdges) {
             std::cout << "Connected Components:" << std::endl;
             g.connectedComponents();
             std::cout << std::endl;
+            break;
+        case 6:
+            std::cout << "Graph Diameter: " << g.diameter() << std::endl;
+            break;
+        case 7:
+            std::cout << "Vertex Count: " << g.vertexCount() << std::endl;
             break;
     }
 }
@@ -126,6 +138,8 @@ int main() {
         std::cout << "Press 3 for searching shortest path between edges in your graph" << std::endl;
         std::cout << "Press 4 to start traveling Salesman Problem" << std::endl;
         std::cout << "Press 5 to find connected Components in undirected graph" << std::endl;
+        std::cout << "Press 6 to find diameter in your graph" << std::endl;
+        std::cout << "Press 7 to find vertex count in your graph" << std::endl;
         std::cout << ">>> ";
         std::cin >> methods;
         std::cout << std::endl;

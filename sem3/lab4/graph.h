@@ -63,8 +63,7 @@ public:
         }
     }
 
-
-    void shortestPath(const T& start, const T& end) {
+    int shortestPath(const T& start, const T& end) {
         std::unordered_map<T, int> distance;
         std::unordered_map<T, T> parent;
         std::queue<T> q;
@@ -94,21 +93,11 @@ public:
             }
         }
 
-        std::cout << "Shortest path from " << start << " to " << end << ": ";
-        std::vector<T> path;
-        T current = end;
-        while (current != T()) {
-            path.insert(path.begin(), current);
-            current = parent[current];
-        }
-
-        if (path.size() > 1) {
-            for (const T& vertex : path) {
-                std::cout << vertex << " ";
-            }
-            std::cout << "(Distance: " << distance[end] << ")" << std::endl;
+        // Возвращаем расстояние вместо вывода на экран
+        if (distance[end] != std::numeric_limits<int>::max()) {
+            return distance[end];
         } else {
-            std::cout << "No path from " << start << " to " << end << " exists." << std::endl;
+            return -1;  // Возврат -1, чтобы указать отсутствие пути
         }
     }
 
@@ -154,6 +143,61 @@ public:
                 std::cout << std::endl;
             }
         }
+    }
+
+    [[nodiscard]] int vertexCount() const {
+        std::unordered_set<T> uniqueVertices;
+
+        for (const auto& entry : adjacencyList) {
+            uniqueVertices.insert(entry.first);
+            for (const T& neighbor : entry.second) {
+                uniqueVertices.insert(neighbor);
+            }
+        }
+
+        return uniqueVertices.size();
+    }
+
+    [[nodiscard]] int diameter() const {
+        int maxDiameter = 0;
+
+        for (const auto& entry : adjacencyList) {
+            T startVertex = entry.first;
+            std::unordered_map<T, int> distance;
+
+            std::queue<T> q;
+            q.push(startVertex);
+            distance[startVertex] = 0;
+
+            while (!q.empty()) {
+                T current = q.front();
+                q.pop();
+
+                for (const T& neighbor : adjacencyList.at(current)) {
+                    if (distance.find(neighbor) == distance.end()) {
+                        distance[neighbor] = distance[current] + 1;
+                        q.push(neighbor);
+                    }
+                }
+            }
+
+            int maxDistance = 0;
+            for (const auto& entry : distance) {
+                maxDistance = std::max(maxDistance, entry.second);
+            }
+
+            maxDiameter = std::max(maxDiameter, maxDistance);
+        }
+
+        return maxDiameter;
+    }
+
+    [[nodiscard]] bool isEmpty() const {
+        return adjacencyList.empty();
+    }
+
+    [[nodiscard]] bool isDirected() const {
+        return directed;
     }
 
 private:
