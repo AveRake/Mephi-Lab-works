@@ -2,30 +2,31 @@
 #define LAB4_GRAPH_H
 #include <iostream>
 #include <unordered_map>
-#include <vector>
 #include <set>
 #include <queue>
 #include <unordered_set>
 #include <stack>
+#include <list>
+#include <algorithm>
 
 
-template <typename T>
+template <typename T, typename W = int>
 class graph {
 public:
     explicit graph(bool directed = true) : directed(directed) {}
 
-    void addEdge(const T& u, const T& v) {
-        adjacencyList[u].push_back(v);
+    void addEdge(const T& u, const T& v, const W& weight = 1) {
+        adjacencyList[u].push_back({v, weight});
         if (!directed) {
-            adjacencyList[v].push_back(u);
+            adjacencyList[v].push_back({u, weight});
         }
     }
 
     void display() const {
         for (const auto& entry : adjacencyList) {
             std::cout << entry.first << ": ";
-            for (const T& neighbor : entry.second) {
-                std::cout << neighbor << " ";
+            for (const auto& neighbor : entry.second) {
+                std::cout << neighbor.first << " (Weight: " << neighbor.second << ") ";
             }
             std::cout << std::endl;
         }
@@ -38,9 +39,9 @@ public:
         for (const auto& entry : adjacencyList) {
             T vertex = entry.first;
 
-            for (const T& neighbor : entry.second) {
-                if (colorMap.find(neighbor) != colorMap.end()) {
-                    usedColors.insert(colorMap[neighbor]);
+            for (const auto& neighbor : entry.second) {
+                if (colorMap.find(neighbor.first) != colorMap.end()) {
+                    usedColors.insert(colorMap[neighbor.first]);
                 }
             }
 
@@ -63,13 +64,13 @@ public:
         }
     }
 
-    int shortestPath(const T& start, const T& end) {
-        std::unordered_map<T, int> distance;
+    int shortestPath(const T& start, const T& end, std::vector<T>& path) {
+        std::unordered_map<T, W> distance;
         std::unordered_map<T, T> parent;
         std::queue<T> q;
 
         for (const auto& entry : adjacencyList) {
-            distance[entry.first] = std::numeric_limits<int>::max();
+            distance[entry.first] = std::numeric_limits<W>::max();
             parent[entry.first] = T();
         }
 
@@ -80,11 +81,11 @@ public:
             T current = q.front();
             q.pop();
 
-            for (const T& neighbor : adjacencyList[current]) {
-                if (distance[current] + 1 < distance[neighbor]) {
-                    distance[neighbor] = distance[current] + 1;
-                    parent[neighbor] = current;
-                    q.push(neighbor);
+            for (const auto& neighbor : adjacencyList[current]) {
+                if (distance[current] + neighbor.second < distance[neighbor.first]) {
+                    distance[neighbor.first] = distance[current] + neighbor.second;
+                    parent[neighbor.first] = current;
+                    q.push(neighbor.first);
                 }
             }
 
@@ -93,13 +94,30 @@ public:
             }
         }
 
-        // Возвращаем расстояние вместо вывода на экран
-        if (distance[end] != std::numeric_limits<int>::max()) {
+        if (distance[end] != std::numeric_limits<W>::max()) {
+            // Reconstruct path
+            path.clear();
+            T current = end;
+            while (current != T()) {
+                path.push_back(current);
+                current = parent[current];
+            }
+            std::reverse(path.begin(), path.end());
+
+            // Output the path
+            std::cout << "Shortest Path from " << start << " to " << end << ": ";
+            for (const T& vertex : path) {
+                std::cout << vertex << " ";
+            }
+            std::cout << "(Distance: " << distance[end] << ")" << std::endl;
+
             return distance[end];
         } else {
-            return -1;  // Возврат -1, чтобы указать отсутствие пути
+            std::cout << "No path found from " << start << " to " << end << std::endl;
+            return -1;
         }
     }
+
 
     void travelingSalesmanProblem(const T& start) {
         std::unordered_set<T> visited;
@@ -115,9 +133,9 @@ public:
                 visited.insert(current);
                 resultPath.push_back(current);
 
-                for (const T& neighbor : adjacencyList[current]) {
-                    if (visited.find(neighbor) == visited.end()) {
-                        pathStack.push(neighbor);
+                for (const auto& neighbor : adjacencyList[current]) {
+                    if (visited.find(neighbor.first) == visited.end()) {
+                        pathStack.push(neighbor.first);
                     }
                 }
             }
@@ -150,8 +168,8 @@ public:
 
         for (const auto& entry : adjacencyList) {
             uniqueVertices.insert(entry.first);
-            for (const T& neighbor : entry.second) {
-                uniqueVertices.insert(neighbor);
+            for (const auto& neighbor : entry.second) {
+                uniqueVertices.insert(neighbor.first);
             }
         }
 
@@ -163,7 +181,7 @@ public:
 
         for (const auto& entry : adjacencyList) {
             T startVertex = entry.first;
-            std::unordered_map<T, int> distance;
+            std::unordered_map<T, W> distance;
 
             std::queue<T> q;
             q.push(startVertex);
@@ -173,17 +191,17 @@ public:
                 T current = q.front();
                 q.pop();
 
-                for (const T& neighbor : adjacencyList.at(current)) {
-                    if (distance.find(neighbor) == distance.end()) {
-                        distance[neighbor] = distance[current] + 1;
-                        q.push(neighbor);
+                for (const auto& neighbor : adjacencyList.at(current)) {
+                    if (distance.find(neighbor.first) == distance.end()) {
+                        distance[neighbor.first] = distance[current] + neighbor.second;
+                        q.push(neighbor.first);
                     }
                 }
             }
 
             int maxDistance = 0;
             for (const auto& entry : distance) {
-                maxDistance = std::max(maxDistance, entry.second);
+                maxDistance = std::max(maxDistance, static_cast<int>(entry.second));
             }
 
             maxDiameter = std::max(maxDiameter, maxDistance);
@@ -201,16 +219,16 @@ public:
     }
 
 private:
-    std::unordered_map<T, std::vector<T>> adjacencyList;
+    std::unordered_map<T, std::list<std::pair<T, W>>> adjacencyList;
     bool directed;
 
     void dfsConnectedComponents(const T& vertex, std::unordered_set<T>& visited) {
         visited.insert(vertex);
         std::cout << vertex << " ";
 
-        for (const T& neighbor : adjacencyList[vertex]) {
-            if (visited.find(neighbor) == visited.end()) {
-                dfsConnectedComponents(neighbor, visited);
+        for (const auto& neighbor : adjacencyList[vertex]) {
+            if (visited.find(neighbor.first) == visited.end()) {
+                dfsConnectedComponents(neighbor.first, visited);
             }
         }
     }

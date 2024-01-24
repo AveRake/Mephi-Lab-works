@@ -24,7 +24,7 @@ void fillGraph() {
 
 
 template<typename T>
-void processGraph(graph<T>& g, int methods, T firstEdges, T secondEdges) {
+void processGraph(graph<T>& g, int methods, T firstEdges, T secondEdges, std::vector<T>& shortestPath) {
     switch (methods) {
         case 1:
             g.display();
@@ -40,8 +40,9 @@ void processGraph(graph<T>& g, int methods, T firstEdges, T secondEdges) {
             std::cout << "To which edge will we look for a path = " ;
             std::cin >> secondEdges;
 
-            if (g.shortestPath(firstEdges, secondEdges) != -1) {
-                std::cout << "Shortest path distance: " << g.shortestPath(firstEdges, secondEdges) << std::endl;
+            shortestPath.clear();
+
+            if (g.shortestPath(firstEdges, secondEdges, shortestPath) != -1) {
             } else {
                 std::cout << "No path exists." << std::endl;
             }
@@ -99,7 +100,14 @@ int main() {
     double  nextEdgeDouble;
     char currentEdgeChar;
     char nextEdgeChar;
+    int choiceDefault = 1;
     int choice = 1;
+    int weight = 1;
+
+    std::cout << "Do you wanna change weigh? If no - press 1, else = 0. By default weigh = 1" << std::endl;
+    std::cout << ">>> ";
+    std::cin >> choiceDefault;
+    std::cout << std::endl;
 
     while (choice != 0) {
         fillGraph();
@@ -108,19 +116,34 @@ int main() {
             std::cin >> currentEdge;
             std::cout << "next edge = ";
             std::cin >> nextEdge;
-            integerGraph.addEdge(currentEdge, nextEdge);
+            if (choiceDefault != 1) {
+                std::cout << "weight of your graph = ";
+                std::cin >> weight;
+                std::cout << std::endl;
+            }
+            integerGraph.addEdge(currentEdge, nextEdge, weight);
         } else if (dataType == 2) {
             std::cout << "current edge = ";
             std::cin >> currentEdgeDouble;
             std::cout << "next edge = ";
             std::cin >> nextEdgeDouble;
-            doubleGraph.addEdge(currentEdgeDouble, nextEdgeDouble);
+            if (choiceDefault != 1) {
+                std::cout << "weight of your graph = ";
+                std::cin >> weight;
+                std::cout << std::endl;
+            }
+            doubleGraph.addEdge(currentEdgeDouble, nextEdgeDouble, weight);
         } else if (dataType == 3) {
             std::cout << "current edge = ";
             std::cin >> currentEdgeChar;
             std::cout << "next edge = ";
             std::cin >> nextEdgeChar;
-            charGraph.addEdge(currentEdgeChar, nextEdgeChar);
+            if (choiceDefault != 1) {
+                std::cout << "weight of your graph = ";
+                std::cin >> weight;
+                std::cout << std::endl;
+            }
+            charGraph.addEdge(currentEdgeChar, nextEdgeChar, weight);
         }
 
         std::cout << std::endl;
@@ -130,6 +153,9 @@ int main() {
     }
 
     int methods;
+    std::vector<int> shortestPathInt;
+    std::vector<double> shortestPathDouble;
+    std::vector<char> shortestPathChar;
     choice = 1;
     while (choice != 0) {
         std::cout << "Choose the method for your graph" << std::endl;
@@ -146,13 +172,13 @@ int main() {
 
         switch (dataType) {
             case 1:
-                processGraph(integerGraph, methods, currentEdge, nextEdge);
+                processGraph(integerGraph, methods, currentEdge, nextEdge, shortestPathInt);
                 break;
             case 2:
-                processGraph(doubleGraph, methods, currentEdgeDouble, nextEdgeDouble);
+                processGraph(doubleGraph, methods, currentEdgeDouble, nextEdgeDouble, shortestPathDouble);
                 break;
             case 3:
-                processGraph(charGraph, methods, currentEdgeChar, nextEdgeChar);
+                processGraph(charGraph, methods, currentEdgeChar, nextEdgeChar, shortestPathChar);
                 break;
         }
 

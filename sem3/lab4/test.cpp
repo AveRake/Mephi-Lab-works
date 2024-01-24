@@ -8,20 +8,22 @@ int main() {
     {
         graph<int> g(false);
 
-        g.addEdge(1, 2);
-        g.addEdge(2, 3);
-        g.addEdge(3, 4);
-        g.addEdge(1, 4);
+        g.addEdge(1, 2, 10);
+        g.addEdge(2, 3, 10);
+        g.addEdge(3, 4, 10);
+        g.addEdge(1, 4, 10);
+        std::vector<int> shortestPath;
+        std::vector<int> shortestPath2;
 
         // Тест shortestPath
-        assert(g.shortestPath(1, 4) == 1);
-        assert(g.shortestPath(1, 5) == 0);
+        assert(g.shortestPath(1, 4, shortestPath) == 10);
+        assert(g.shortestPath(1, 5, shortestPath2) == 0);
 
         // Тест vertexCount
         assert(g.vertexCount() == 4);
 
         // Тест diameter
-        assert(g.diameter() == 2);
+        assert(g.diameter() == 20);
 
         // Тест isEmpty
         assert(!g.isEmpty());
@@ -61,10 +63,12 @@ int main() {
         g.addEdge(2.0, 3.0);
         g.addEdge(3.0, 4.0);
         g.addEdge(1.0, 4.0);
+        std::vector<double> shortestPath;
+        std::vector<double> shortestPath2;
 
         // Тест shortestPath
-        assert(g.shortestPath(1.0, 4.0) == 1);
-        assert(g.shortestPath(1.0, 5.0) == 0);
+        assert(g.shortestPath(1.0, 4.0, shortestPath) == 1);
+        assert(g.shortestPath(1.0, 5.0, shortestPath2) == 0);
 
         // Тест vertexCount
         assert(g.vertexCount() == 4);
@@ -110,10 +114,12 @@ int main() {
         g.addEdge("B", "C");
         g.addEdge("C", "D");
         g.addEdge("A", "D");
+        std::vector<std::string> shortestPath;
+        std::vector<std::string> shortestPath2;
 
         // Тест shortestPath
-        assert(g.shortestPath("A", "D") == 1);
-        assert(g.shortestPath("A", "E") == 0);
+        assert(g.shortestPath("A", "D", shortestPath) == 1);
+        assert(g.shortestPath("A", "E", shortestPath2) == 0);
 
         // Тест vertexCount
         assert(g.vertexCount() == 4);
