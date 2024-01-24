@@ -1,37 +1,30 @@
 #ifndef LAB4_GRAPH_H
 #define LAB4_GRAPH_H
-
 #include <iostream>
+#include <unordered_map>
 #include <vector>
-#include <list>
 #include <set>
 #include <queue>
+#include <unordered_set>
+#include <stack>
 
 
 template <typename T>
 class graph {
-private:
-    int vertices;
-    bool isDirected;
-    std::vector<std::vector<T>> adjacencyList;
-
 public:
-    graph(int vertices, bool isDirected) : vertices(vertices), isDirected(isDirected) {
-        adjacencyList.resize(vertices);
-    }
+    explicit graph(bool directed = true) : directed(directed) {}
 
-    void addEdge(T from, T to) {
-        adjacencyList[from].push_back(to);
-
-        if (!isDirected) {
-            adjacencyList[to].push_back(from);
+    void addEdge(const T& u, const T& v) {
+        adjacencyList[u].push_back(v);
+        if (!directed) {
+            adjacencyList[v].push_back(u);
         }
     }
 
-    void printGraph() {
-        for (int i = 0; i < vertices; ++i) {
-            std::cout << "Vertex " << i << ": ";
-            for (const auto& neighbor : adjacencyList[i]) {
+    void display() const {
+        for (const auto& entry : adjacencyList) {
+            std::cout << entry.first << ": ";
+            for (const T& neighbor : entry.second) {
                 std::cout << neighbor << " ";
             }
             std::cout << std::endl;
@@ -39,115 +32,133 @@ public:
     }
 
     void colorGraph() {
-        std::vector<int> colors(vertices, -1);
+        std::unordered_map<T, int> colorMap;
+        std::set<int> usedColors;
 
-        for (int vertex = 0; vertex < vertices; ++vertex) {
-            std::set<int> availableColors;
+        for (const auto& entry : adjacencyList) {
+            T vertex = entry.first;
 
-            for (const auto& neighbor : adjacencyList[vertex]) {
-                if (colors[neighbor] != -1) {
-                    availableColors.insert(colors[neighbor]);
+            // Проверяем соседей вершины и присваиваем минимальный доступный цвет
+            for (const T& neighbor : entry.second) {
+                if (colorMap.find(neighbor) != colorMap.end()) {
+                    usedColors.insert(colorMap[neighbor]);
                 }
             }
 
-            auto it = availableColors.begin();
-            int chosenColor = 0;
-            while (it != availableColors.end() && *it == chosenColor) {
-                ++it;
-                ++chosenColor;
-            }
-
-            colors[vertex] = chosenColor;
-        }
-
-        std::cout << "Graph coloring page:" << std::endl;
-        for (int i = 0; i < vertices; ++i) {
-            std::cout << "Vertex " << i << " painted in color " << colors[i] << std::endl;
-        }
-    }
-
-    std::vector<int> shortestPaths(int startVertex) {
-        std::vector<int> distances(vertices, -1);
-        distances[startVertex] = 0;
-
-        std::queue<int> bfsQueue;
-        bfsQueue.push(startVertex);
-
-        while (!bfsQueue.empty()) {
-            int currentVertex = bfsQueue.front();
-            bfsQueue.pop();
-
-            for (const auto& neighbor : adjacencyList[currentVertex]) {
-                if (distances[neighbor] == -1) {
-                    distances[neighbor] = distances[currentVertex] + 1;
-                    bfsQueue.push(neighbor);
-                }
-            }
-        }
-
-        return distances;
-    }
-
-    void solveTSP(int startVertex) {
-        std::vector<bool> visited(vertices, false);
-        std::vector<int> path;
-        int totalDistance = 0;
-
-        int currentVertex = startVertex;
-        path.push_back(currentVertex);
-        visited[currentVertex] = true;
-
-        while (path.size() < vertices) {
-            int nearestNeighbor = -1;
-            int minDistance = std::numeric_limits<int>::max();
-
-            for (const auto& neighbor : adjacencyList[currentVertex]) {
-                if (!visited[neighbor] && minDistance > 1) {
-                    nearestNeighbor = neighbor;
-                    minDistance = 1;
-                }
-            }
-
-            if (nearestNeighbor != -1) {
-                path.push_back(nearestNeighbor);
-                visited[nearestNeighbor] = true;
-                totalDistance += 1;
-                currentVertex = nearestNeighbor;
+            // Если вершина не имеет соседей, присваиваем ей цвет 1
+            if (usedColors.empty()) {
+                colorMap[vertex] = 1;
             } else {
-                bool allVisited = true;
-                for (int i = 0; i < vertices; ++i) {
-                    if (!visited[i]) {
-                        allVisited = false;
-                        break;
-                    }
+                // Находим минимальный доступный цвет
+                int color = 1;
+                while (usedColors.find(color) != usedColors.end()) {
+                    color++;
                 }
 
-                if (allVisited) {
-                    break;
-                }
+                // Присваиваем цвет вершине
+                colorMap[vertex] = color;
+            }
 
-                for (int i = 0; i < vertices; ++i) {
-                    if (!visited[i]) {
-                        currentVertex = i;
-                        path.push_back(currentVertex);
-                        visited[currentVertex] = true;
-                        break;
-                    }
-                }
+            // Очищаем множество использованных цветов
+            usedColors.clear();
+        }
 
-                totalDistance += 1;
+        // Выводим результат
+        for (const auto& entry : colorMap) {
+            std::cout << entry.first << " is colored with color " << entry.second << std::endl;
+        }
+    }
+
+
+    void shortestPath(const T& start, const T& end) {
+        std::unordered_map<T, int> distance;
+        std::unordered_map<T, T> parent;
+        std::queue<T> q;
+
+        for (const auto& entry : adjacencyList) {
+            distance[entry.first] = std::numeric_limits<int>::max();
+            parent[entry.first] = T();
+        }
+
+        distance[start] = 0;
+        q.push(start);
+
+        while (!q.empty()) {
+            T current = q.front();
+            q.pop();
+
+            for (const T& neighbor : adjacencyList[current]) {
+                if (distance[current] + 1 < distance[neighbor]) {
+                    distance[neighbor] = distance[current] + 1;
+                    parent[neighbor] = current;
+                    q.push(neighbor);
+                }
+            }
+
+            // Изменение: если достигли конечной вершины, выходим из цикла
+            if (current == end) {
+                break;
             }
         }
 
-        std::cout << "Approximate solution to the traveling salesman problem (nearest neighbor method): " << std::endl;
-        std::cout << "Path: ";
-        for (const auto& vertex : path) {
+        // Вывод кратчайшего пути
+        std::cout << "Shortest path from " << start << " to " << end << ": ";
+        std::vector<T> path;
+        T current = end;
+        while (current != T()) {
+            path.insert(path.begin(), current);
+            current = parent[current];
+        }
+
+        if (path.size() > 1) {
+            for (const T& vertex : path) {
+                std::cout << vertex << " ";
+            }
+            std::cout << "(Distance: " << distance[end] << ")" << std::endl;
+        } else {
+            std::cout << "No path from " << start << " to " << end << " exists." << std::endl;
+        }
+    }
+
+    void travelingSalesmanProblem(const T& start) {
+        std::unordered_set<T> visited;
+        std::stack<T> pathStack;
+        std::vector<T> resultPath;
+
+        // Begin traversal from the selected vertex
+        pathStack.push(start);
+
+        while (!pathStack.empty()) {
+            T current = pathStack.top();
+            pathStack.pop();
+
+            if (visited.find(current) == visited.end()) {
+                visited.insert(current);
+                resultPath.push_back(current);
+
+                // Add unvisited neighbors to the stack
+                for (const T& neighbor : adjacencyList[current]) {
+                    if (visited.find(neighbor) == visited.end()) {
+                        pathStack.push(neighbor);
+                    }
+                }
+            }
+        }
+
+        // Add the starting vertex to complete the cycle
+        resultPath.push_back(start);
+
+        // Output the result
+        std::cout << "Traveling Salesman Path starting from " << start << ": ";
+        for (const T& vertex : resultPath) {
             std::cout << vertex << " ";
         }
         std::cout << std::endl;
-        std::cout << "Total distance: " << totalDistance << std::endl;
     }
-};
 
+private:
+    std::unordered_map<T, std::vector<T>> adjacencyList;
+    bool directed;
+};
 
 #endif //LAB4_GRAPH_H
