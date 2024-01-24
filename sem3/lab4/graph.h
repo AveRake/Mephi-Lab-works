@@ -38,32 +38,26 @@ public:
         for (const auto& entry : adjacencyList) {
             T vertex = entry.first;
 
-            // Проверяем соседей вершины и присваиваем минимальный доступный цвет
             for (const T& neighbor : entry.second) {
                 if (colorMap.find(neighbor) != colorMap.end()) {
                     usedColors.insert(colorMap[neighbor]);
                 }
             }
 
-            // Если вершина не имеет соседей, присваиваем ей цвет 1
             if (usedColors.empty()) {
                 colorMap[vertex] = 1;
             } else {
-                // Находим минимальный доступный цвет
                 int color = 1;
                 while (usedColors.find(color) != usedColors.end()) {
                     color++;
                 }
 
-                // Присваиваем цвет вершине
                 colorMap[vertex] = color;
             }
 
-            // Очищаем множество использованных цветов
             usedColors.clear();
         }
 
-        // Выводим результат
         for (const auto& entry : colorMap) {
             std::cout << entry.first << " is colored with color " << entry.second << std::endl;
         }
@@ -95,13 +89,11 @@ public:
                 }
             }
 
-            // Изменение: если достигли конечной вершины, выходим из цикла
             if (current == end) {
                 break;
             }
         }
 
-        // Вывод кратчайшего пути
         std::cout << "Shortest path from " << start << " to " << end << ": ";
         std::vector<T> path;
         T current = end;
@@ -124,8 +116,6 @@ public:
         std::unordered_set<T> visited;
         std::stack<T> pathStack;
         std::vector<T> resultPath;
-
-        // Begin traversal from the selected vertex
         pathStack.push(start);
 
         while (!pathStack.empty()) {
@@ -136,7 +126,6 @@ public:
                 visited.insert(current);
                 resultPath.push_back(current);
 
-                // Add unvisited neighbors to the stack
                 for (const T& neighbor : adjacencyList[current]) {
                     if (visited.find(neighbor) == visited.end()) {
                         pathStack.push(neighbor);
@@ -145,10 +134,7 @@ public:
             }
         }
 
-        // Add the starting vertex to complete the cycle
         resultPath.push_back(start);
-
-        // Output the result
         std::cout << "Traveling Salesman Path starting from " << start << ": ";
         for (const T& vertex : resultPath) {
             std::cout << vertex << " ";
@@ -156,9 +142,34 @@ public:
         std::cout << std::endl;
     }
 
+    void connectedComponents() {
+        std::unordered_set<T> visited;
+        int componentCount = 0;
+
+        for (const auto& entry : adjacencyList) {
+            T vertex = entry.first;
+            if (visited.find(vertex) == visited.end()) {
+                std::cout << "Connected Component " << ++componentCount << ": ";
+                dfsConnectedComponents(vertex, visited);
+                std::cout << std::endl;
+            }
+        }
+    }
+
 private:
     std::unordered_map<T, std::vector<T>> adjacencyList;
     bool directed;
+
+    void dfsConnectedComponents(const T& vertex, std::unordered_set<T>& visited) {
+        visited.insert(vertex);
+        std::cout << vertex << " ";
+
+        for (const T& neighbor : adjacencyList[vertex]) {
+            if (visited.find(neighbor) == visited.end()) {
+                dfsConnectedComponents(neighbor, visited);
+            }
+        }
+    }
 };
 
 #endif //LAB4_GRAPH_H
