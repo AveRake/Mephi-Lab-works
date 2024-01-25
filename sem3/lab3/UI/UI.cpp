@@ -1,5 +1,6 @@
 #include "../forHistogram/histogram .h"
-#include "../forHistogram/person.h"
+#include "../sequence/person.h"
+#include "../sequence/sequences.h"
 #include <vector>
 
 
@@ -56,6 +57,20 @@ int main() {
 
     std::cout << "\nHistogram for weight:" << std::endl;
     weightHistogram.display();
+
+    histogram<int> arrayHistogram;
+    DynamicArray<int> array;
+    array.push_back(11);
+    array.push_back(22);
+    array.push_back(33);
+    array.push_back(44);
+    array.push_back(44);
+
+    for (int i = 0; i < 5; ++i) {
+        arrayHistogram.addElement(array[i]);
+    }
+    std::cout << "histogram for type array:" << std::endl;
+    arrayHistogram.display();
 
     return 0;
 }
