@@ -11,19 +11,20 @@ int main() {
         g.addEdge(1, 2, 10);
         g.addEdge(2, 3, 10);
         g.addEdge(3, 4, 10);
-        g.addEdge(1, 4, 10);
+        g.addEdge(1, 4, 50);
         std::vector<int> shortestPath;
-        std::vector<int> shortestPath2;
 
         // Тест shortestPath
-        assert(g.shortestPath(1, 4, shortestPath) == 10);
-        assert(g.shortestPath(1, 5, shortestPath2) == 0);
+        assert(g.shortestPath(1, 3, shortestPath) == 20);
+        shortestPath.clear();
+        assert(g.shortestPath(1, 5, shortestPath) == 0);
+        shortestPath.clear();
 
         // Тест vertexCount
         assert(g.vertexCount() == 4);
 
         // Тест diameter
-        assert(g.diameter() == 20);
+        assert(g.diameter() == 60);
 
         // Тест isEmpty
         assert(!g.isEmpty());
@@ -50,25 +51,51 @@ int main() {
         // Тест isDirected
         assert(!g1.isDirected());
 
-        std::cout << "Tests for int with large graph passed!" << std::endl;
-        std::cout << "Tests for int passed!" << std::endl;
-        std::cout << std::endl;
+        // Тест ориентированной версии
+        graph<int> g2(true);
+
+        g2.addEdge(1, 2, 1);
+        g2.addEdge(2, 3, 1);
+        g2.addEdge(3, 4, 1);
+        g2.addEdge(4, 5, 1);
+        g2.addEdge(5, 6, 1);
+        g2.addEdge(6, 1, 1);
+
+        // Тест shortestPath
+        assert(g2.shortestPath(1, 2, shortestPath) == 1);
+        shortestPath.clear();
+        assert(g2.shortestPath(1, 5, shortestPath) != 0);
+        shortestPath.clear();
+
+        // Тест vertexCount
+        assert(g2.vertexCount() == 6);
+
+        // Тест diameter
+        assert(g2.diameter() != 1);
+
+        // Тест isEmpty
+        assert(!g2.isEmpty());
+
+        // Тест isDirected
+        assert(g2.isDirected());
     }
+
 
     // Тесты для graph с типом double
     {
         graph<double> g(false);
 
-        g.addEdge(1.0, 2.0);
-        g.addEdge(2.0, 3.0);
-        g.addEdge(3.0, 4.0);
-        g.addEdge(1.0, 4.0);
+        g.addEdge(1.1, 2.1);
+        g.addEdge(2.1, 3.1);
+        g.addEdge(3.1, 4.1);
+        g.addEdge(1.1, 4.1);
         std::vector<double> shortestPath;
-        std::vector<double> shortestPath2;
 
         // Тест shortestPath
-        assert(g.shortestPath(1.0, 4.0, shortestPath) == 1);
-        assert(g.shortestPath(1.0, 5.0, shortestPath2) == 0);
+        assert(g.shortestPath(1.1, 4.1, shortestPath) == 1);
+        shortestPath.clear();
+        assert(g.shortestPath(1.1, 5.1, shortestPath) == 0);
+        shortestPath.clear();
 
         // Тест vertexCount
         assert(g.vertexCount() == 4);
@@ -101,10 +128,24 @@ int main() {
         // Тест isDirected
         assert(!g1.isDirected());
 
-        std::cout << "Tests for double with large graph passed!" << std::endl;
-        std::cout << "Tests for double passed!" << std::endl;
-        std::cout << std::endl;
+        // Тест ориентированной версии
+        graph<double> g2(true);
+
+        g2.addEdge(1.1, 2.1);
+        g2.addEdge(2.1, 3.1);
+        g2.addEdge(3.1, 4.1);
+        g2.addEdge(1.1, 4.1);
+
+        // Тест vertexCount
+        assert(g2.vertexCount() == 4);
+
+        // Тест isEmpty
+        assert(!g2.isEmpty());
+
+        // Тест isDirected
+        assert(g2.isDirected());
     }
+
 
     // Тесты для graph с типом string
     {
@@ -115,11 +156,12 @@ int main() {
         g.addEdge("C", "D");
         g.addEdge("A", "D");
         std::vector<std::string> shortestPath;
-        std::vector<std::string> shortestPath2;
 
         // Тест shortestPath
         assert(g.shortestPath("A", "D", shortestPath) == 1);
-        assert(g.shortestPath("A", "E", shortestPath2) == 0);
+        shortestPath.clear();
+        assert(g.shortestPath("A", "E", shortestPath) == 0);
+        shortestPath.clear();
 
         // Тест vertexCount
         assert(g.vertexCount() == 4);
@@ -152,10 +194,44 @@ int main() {
         // Тест isDirected
         assert(!g1.isDirected());
 
-        std::cout << "Tests for std::string with large graph passed!" << std::endl;
-        std::cout << "Tests for string passed!" << std::endl;
-        std::cout << std::endl;
+        // Тест ориентированной версии
+        graph<std::string> g2(true);
+
+        g2.addEdge("A", "B");
+        g2.addEdge("B", "C");
+        g2.addEdge("C", "D");
+        g2.addEdge("A", "D");
+
+        // Тест shortestPath
+        assert(g2.shortestPath("A", "D", shortestPath) != 2);
+        shortestPath.clear();
+        assert(g2.shortestPath("A", "E", shortestPath) == 0);
+        shortestPath.clear();
+
+        // Тест vertexCount
+        assert(g2.vertexCount() == 4);
+
+        // Тест isEmpty
+        assert(!g2.isEmpty());
+
+        // Тест isDirected
+        assert(g2.isDirected());
+
     }
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "Tests for int with large graph passed!" << std::endl;
+    std::cout << "Tests for int passed!" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Tests for double with large graph passed!" << std::endl;
+    std::cout << "Tests for double passed!" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Tests for std::string with large graph passed!" << std::endl;
+    std::cout << "Tests for string passed!" << std::endl;
+    std::cout << std::endl;
 
     return 0;
 }

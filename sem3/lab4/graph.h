@@ -8,6 +8,7 @@
 #include <stack>
 #include <list>
 #include <algorithm>
+#include <iomanip>
 
 
 template <typename T, typename W = int>
@@ -95,7 +96,6 @@ public:
         }
 
         if (distance[end] != std::numeric_limits<W>::max()) {
-            // Reconstruct path
             path.clear();
             T current = end;
             while (current != T()) {
@@ -104,14 +104,18 @@ public:
             }
             std::reverse(path.begin(), path.end());
 
-            // Output the path
             std::cout << "Shortest Path from " << start << " to " << end << ": ";
-            for (const T& vertex : path) {
-                std::cout << vertex << " ";
+            W totalDistance = 0;
+            for (size_t i = 0; i < path.size() - 1; ++i) {
+                T currentVertex = path[i];
+                T nextVertex = path[i + 1];
+                W edgeWeight = getWeight(currentVertex, nextVertex);
+                std::cout << currentVertex << " -> " << nextVertex << " (Weight: " << edgeWeight << ") ";
+                totalDistance += edgeWeight;
             }
-            std::cout << "(Distance: " << distance[end] << ")" << std::endl;
+            std::cout << "(Total Distance: " << totalDistance << ")" << std::endl;
 
-            return distance[end];
+            return totalDistance;
         } else {
             std::cout << "No path found from " << start << " to " << end << std::endl;
             return -1;
@@ -231,6 +235,16 @@ private:
                 dfsConnectedComponents(neighbor.first, visited);
             }
         }
+    }
+
+    W getWeight(const T& u, const T& v) const {
+        for (const auto& neighbor : adjacencyList.at(u)) {
+            if (neighbor.first == v) {
+                return neighbor.second;
+            }
+        }
+        // Вернуть значение по умолчанию, если ребро не найдено
+        return W();
     }
 };
 
