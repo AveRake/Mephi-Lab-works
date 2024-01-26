@@ -1,6 +1,7 @@
 #include "../forHistogram/histogram .h"
-#include "../sequence/person.h"
+#include "../sequence/human.h"
 #include "../sequence/sequences.h"
+#include "../taskCache/cache.h"
 #include <vector>
 
 
@@ -36,12 +37,12 @@ int main() {
     stringHistogram.display();
 
 
-    std::vector<Person> people = {
-            Person(25, 65.5),
-            Person(30, 72.1),
-            Person(25, 61.8),
-            Person(35, 80.2),
-            Person(30, 68.5)
+    std::vector<human> people = {
+            human(25, 65.5),
+            human(30, 72.1),
+            human(25, 61.8),
+            human(35, 80.2),
+            human(30, 68.5)
     };
 
     histogram<int> ageHistogram;
@@ -71,6 +72,48 @@ int main() {
     }
     std::cout << "histogram for type array:" << std::endl;
     arrayHistogram.display();
+
+
+    cache<std::string, human> myCache(3);
+
+    // Создаем несколько объектов human
+    human person1(25, 70.5);
+    human person2(30, 65.2);
+    human person3(22, 68.0);
+
+    // Добавляем объекты в кеш с ключами
+    myCache.put("John", person1);
+    myCache.put("Alice", person2);
+    myCache.put("Bob", person3);
+
+    // Запрашиваем объект из кеша по ключу
+    human result(0, 0.0);
+    if (myCache.get("Alice", result)) {
+        std::cout << "Person Alice found in cache. Age: " << result.age << ", Weight: " << result.weight << std::endl;
+    } else {
+        std::cout << "Person Alice not found in cache." << std::endl;
+    }
+
+    // Добавляем еще один объект в кеш
+    human person4(28, 72.3);
+    myCache.setCapacity(5);
+    myCache.put("Eve", person4);
+
+    // Запрашиваем объект из кеша по ключу
+    if (myCache.get("John", result)) {
+        std::cout << "Person John found in cache. Age: " << result.age << ", Weight: " << result.weight << std::endl;
+    } else {
+        std::cout << "Person John not found in cache." << std::endl;
+    }
+
+    std::size_t currentSize = myCache.getSize();
+    std::cout << "Current size of the cache: " << currentSize << std::endl;
+
+    myCache.clear();
+    std::cout << "Cache cleared. Current size: " << myCache.getSize() << std::endl;
+
+    myCache.put("Eve", person4);
+    std::cout << "Current size of the cache: " << myCache.getSize() << std::endl;
 
     return 0;
 }
