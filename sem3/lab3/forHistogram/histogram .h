@@ -2,7 +2,6 @@
 #define LAB3_HISTOGRAM_H
 
 #include <iostream>
-#include <map>
 #include "myMap.h"
 
 

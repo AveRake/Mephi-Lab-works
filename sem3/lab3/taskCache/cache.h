@@ -9,12 +9,10 @@ class cache {
 public:
     explicit cache(int capacity) : capacity(capacity) {}
 
-    // Получение значения из кеша
     bool get(const Key& key, Value& result) {
         auto it = cacheMap.find(key);
 
         if (cacheMap.size() > 0 && it != cacheMap.end()) {
-            // Перемещаем найденный элемент в начало списка (LRU)
             cacheList.splice(cacheList.begin(), cacheList, it->second);
             result = it->second->second;
             return true;
@@ -23,9 +21,7 @@ public:
         return false;
     }
 
-    // Добавление значения в кеш
     void put(const Key& key, const Value& value) {
-        // Если кеш переполнен, удаляем самый старый элемент
         if (cacheMap.size() >= capacity) {
             auto last = cacheList.end();
             --last;
@@ -33,21 +29,18 @@ public:
             cacheList.pop_back();
         }
 
-        // Вставляем новый элемент в начало списка
         cacheList.emplace_front(key, value);
         cacheMap.insert(key, cacheList.begin());
     }
 
     void setCapacity(int newCapacity) {
         if (newCapacity < 0) {
-            // Обработка случая некорректного значения размера кэша
             std::cerr << "Error: Invalid capacity value." << std::endl;
             return;
         }
 
         capacity = newCapacity;
 
-        // Обрезаем кеш до нового размера
         while (cacheMap.size() > capacity) {
             auto last = cacheList.end();
             --last;
