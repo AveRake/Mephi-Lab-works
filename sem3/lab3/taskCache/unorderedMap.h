@@ -27,6 +27,16 @@ public:
         return it;
     }
 
+    Value& operator[](const Key& key) {
+        auto it = find(key);
+        if (it == data.end()) {
+            data.push_back({key, Value()});
+            return data.back().second;
+        } else {
+            return it->second;
+        }
+    }
+
     void erase(const Key& key) {
         auto it = find(key);
         if (it != data.end()) {
@@ -41,6 +51,10 @@ public:
             return true;
         }
         return false;
+    }
+
+    typename std::list<std::pair<Key, Value>>::iterator begin() {
+        return data.begin();
     }
 
     typename std::list<std::pair<Key, Value>>::iterator end() {

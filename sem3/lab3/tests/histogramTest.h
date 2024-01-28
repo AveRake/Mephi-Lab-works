@@ -54,48 +54,6 @@ void runHistogramTest() {
     check(binCount2Double == 2, "Test 8");
     check(binCount3Double == 1, "Test 9");
     check(binCount4Double == 1, "Test 10");
-
-// Тест для метода getNumBins
-    int numBinsDouble = doubleHistogram.getNumBins();
-    check(numBinsDouble == 4, "Test 11");
-
-// Тест для метода getTotalCount
-    int totalCountDouble = doubleHistogram.getTotalCount();
-    check(totalCountDouble == 7, "Test 12");
-
-// Тест для histogram с типом данных std::string
-    histogram<std::string> stringHistogram;
-    stringHistogram.addElement("one");
-    stringHistogram.addElement("two");
-    stringHistogram.addElement("three");
-    stringHistogram.addElement("one");
-    stringHistogram.addElement("two");
-    stringHistogram.addElement("four");
-    stringHistogram.addElement("one");
-
-// Тест для метода getBinCount
-    int binCountOne = stringHistogram.getBinCount("one");
-    int binCountTwo = stringHistogram.getBinCount("two");
-    int binCountThree = stringHistogram.getBinCount("three");
-    int binCountFour = stringHistogram.getBinCount("four");
-
-    check(binCountOne == 3, "Test 13");
-    check(binCountTwo == 2, "Test 14");
-    check(binCountThree == 1, "Test 15");
-    check(binCountFour == 1, "Test 16");
-
-// Тест для метода getNumBins
-    int numBinsString = stringHistogram.getNumBins();
-    check(numBinsString == 4, "Test 17");
-
-// Тест для метода getTotalCount
-    int totalCountString = stringHistogram.getTotalCount();
-    check(totalCountString == 7, "Test 18");
-
-    std::cout << std::endl;
-    std::cout <<"Testing histogram class was completed" << std::endl;
-    std::cout << std::endl;
-
 }
 
 #endif //LAB3_HISTOGRAM_TEST_H

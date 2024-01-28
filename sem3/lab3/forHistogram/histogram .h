@@ -2,44 +2,52 @@
 #define LAB3_HISTOGRAM_H
 
 #include <iostream>
-#include "myMap.h"
+#include "../sequences/sequence.h"
 
 
 template <typename T>
 struct histogram {
-    myMap<T, int> bins;
+    LinkedList<T> bins;
+
+    histogram() = default;
 
     void addElement(T value) {
-        int* binCount = bins.find(value);
-        if (binCount != nullptr) {
-            (*binCount)++;
-        } else {
-            bins.insert(value, 1);
-        }
+        bins.push_back(value);
     }
 
     void display() const {
-        for (const auto& bin : bins) {
-            std::cout << "Category: " << bin.first << ", Elements count: " << bin.second << " ";
+        LinkedListIterator<T> iter = bins.begin();
+        while (iter != bins.end()) {
+            std::cout << "Category: " << *iter << ", Elements count: " << bins.getBinCount(*iter) << " ";
             std::cout << "| ";
-            for (int i = 0; i < bin.second; ++i) {
+            for (int i = 0; i < bins.getBinCount(*iter); ++i) {
                 std::cout << '*';
             }
             std::cout << std::endl;
+            ++iter;
         }
     }
 
     [[nodiscard]] int getTotalCount() const {
         int totalCount = 0;
-        for (const auto& bin : bins) {
-            totalCount += bin.second;
+        LinkedListIterator<T> iter = bins.begin();
+        while (iter != bins.end()) {
+            totalCount += bins.getBinCount(*iter);
+            ++iter;
         }
         return totalCount;
     }
 
     [[nodiscard]] int getBinCount(T value) const {
-        int* binCount = bins.find(value);
-        return (binCount != nullptr) ? *binCount : 0;
+        int count = 0;
+        LinkedListIterator<T> iter = bins.begin();
+        while (iter != bins.end()) {
+            if (*iter == value) {
+                count++;
+            }
+            ++iter;
+        }
+        return count;
     }
 
     [[nodiscard]] int getNumBins() const {

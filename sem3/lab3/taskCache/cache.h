@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <algorithm>
 
+
 template <typename Key, typename Value>
 class cache {
 public:
@@ -83,7 +84,7 @@ private:
     int capacity;
     myUnorderedMap<Key, typename std::list<std::pair<Key, Value>>::iterator> cacheMap;
     std::list<std::pair<Key, Value>> cacheList;
-    std::unordered_map<Key, int> usageCount;
+    myUnorderedMap<Key, int> usageCount;
 };
 
 #endif //LAB3_CACHE_H
