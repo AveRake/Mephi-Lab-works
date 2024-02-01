@@ -147,7 +147,7 @@ int main() {
     }
 
 
-    // Тесты для graph с типом string
+    // Тесты для graph с типом std::string
     {
         graph<std::string> g(false);
 
