@@ -243,7 +243,6 @@ private:
                 return neighbor.second;
             }
         }
-        // Вернуть значение по умолчанию, если ребро не найдено
         return W();
     }
 };
